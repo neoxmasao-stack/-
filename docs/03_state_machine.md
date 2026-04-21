@@ -1,0 +1,13 @@
+# 03 State Machine
+
+INIT → VALIDATING → AML_REVIEW → APPROVAL_REQUIRED → APPROVED → RTGS_PENDING → EXTERNAL_ACK → FINALIZED
+
+例外遷移:
+- FAILED
+- RETRYING
+- MANUAL_REVIEW
+- RECONCILIATION_REQUIRED
+
+## 遷移原則
+- すべての遷移は audit_id を付与
+- 非同期イベントは idempotency で重複排除
