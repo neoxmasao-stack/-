@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run
 
 help:
 	@echo "Available targets:"
@@ -8,6 +8,7 @@ help:
 	@echo "  make logs                   # Show local logs (placeholder)"
 	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12/13/14 + operating model + gateway/licensing + infra/legal/uiux/ai/revenue + cloudflare + ai-guardrails + 18-country-license-index)"
 	@echo "  make legal-clean            # Run legal/compliance clean checks and report"
+	@echo "  make next-build-debug-local # Debug Next build (auto package manager detect)"
 	@echo "  make ci                     # CI-safe checks (syntax + advisory gate)"
 	@echo "  make check-go-live          # Strict go-live gate (fails if any control is missing)"
 	@echo "  make check-go-live-advisory # Advisory go-live gate (non-blocking)"
@@ -71,3 +72,6 @@ cloudflare-sync-staging:
 
 cloudflare-sync-production:
 	@bash scripts/cloudflare_sync.sh --production
+
+next-build-debug-local:
+	@bash scripts/next_build_debug.sh

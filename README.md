@@ -90,3 +90,14 @@ make legal-clean
 ```
 
 レポート: `artifacts/legal-clean-report.md`
+
+
+## Next.js build debug（pnpm not found対策）
+
+```bash
+make next-build-debug-local
+```
+
+- `scripts/next_build_debug.sh` は package manager を自動判定し、`pnpm` が必要な場合は `corepack` で有効化してから `next build` を実行します。
+- `npx next info` は情報取得失敗で全体を止めないよう `|| true` で実行します。
+- GitHub Actions 手動実行: `.github/workflows/next-build-debug.yml`。

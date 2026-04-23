@@ -51,6 +51,16 @@ make cloudflare-sync-production
 ```
 - `wrangler.toml` と Cloudflare Secrets の設定を事前に確認する。
 
+
+### Next.js build debug（pnpm not found対策）
+```bash
+make next-build-debug-local
+```
+- `pnpm: not found` を回避するため、`corepack enable` + `corepack prepare pnpm@latest --activate` を標準化。
+- `npx next info` は情報取得専用で、失敗時でも build を継続。
+- 手動ワークフロー: `.github/workflows/next-build-debug.yml`
+
+
 ## Control model
 判定項目は A〜F + R（19含む）（Repository readiness）で管理。
 
