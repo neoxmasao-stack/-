@@ -6,7 +6,7 @@ help:
 	@echo "  make down                   # Stop local stack (placeholder)"
 	@echo "  make health                 # Run local health checks"
 	@echo "  make logs                   # Show local logs (placeholder)"
-	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12/13/14 + operating model + gateway/licensing + infra/legal/uiux/ai/revenue + cloudflare + ai-guardrails)"
+	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12/13/14 + operating model + gateway/licensing + infra/legal/uiux/ai/revenue + cloudflare + ai-guardrails + 18-country-license-index)"
 	@echo "  make ci                     # CI-safe checks (syntax + advisory gate)"
 	@echo "  make check-go-live          # Strict go-live gate (fails if any control is missing)"
 	@echo "  make check-go-live-advisory # Advisory go-live gate (non-blocking)"
@@ -46,6 +46,7 @@ verify-docs:
 	@test -f docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md
 	@test -f docs/17_cloudflare_sync.md
 	@test -f docs/18_ai_operations_guardrails.md
+	@test -f docs/19_license_register_index_18_countries.md
 	@echo "[verify-docs] required docs are present."
 
 ci: verify-docs

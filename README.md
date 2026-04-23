@@ -41,6 +41,7 @@ make check-go-live
 - `docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md`
 - `docs/17_cloudflare_sync.md`
 - `docs/18_ai_operations_guardrails.md`
+- `docs/19_license_register_index_18_countries.md`
 
 ## リカバリ確認（PowerShell）
 
@@ -68,3 +69,14 @@ make ci
 ```
 
 詳細は `docs/18_ai_operations_guardrails.md` を参照。
+
+
+## 18カ国当局インデックス
+
+```bash
+# ドキュメント整合 + インデックス存在確認
+make verify-docs
+make ci
+```
+
+詳細は `docs/19_license_register_index_18_countries.md` を参照。

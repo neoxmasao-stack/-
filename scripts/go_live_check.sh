@@ -74,6 +74,7 @@ check "D1" "Authority update requests tracked" "$(is_true "${CHECK_AUTHORITY_TRA
 check "D2" "Receipt / acknowledgement tracked" "$(is_true "${CHECK_ACK_TRACKING:-0}" && echo 1 || echo 0)"
 check "D3" "Public listing + official portal refs maintained" "$(is_true "${CHECK_PORTAL_LISTING:-0}" && echo 1 || echo 0)"
 check "D4" "Original document hash verification tracked" "$(is_true "${CHECK_DOC_HASH_VERIFICATION:-0}" && echo 1 || echo 0)"
+check "D5" "18-country official licensing index maintained" "$(is_true "${CHECK_LICENSE_18_COUNTRY_INDEX:-0}" && echo 1 || echo 0)"
 
 # E. Audit / Compliance
 check "E1" "All state transitions logged" "$(is_true "${CHECK_ALL_TRANSITIONS_AUDITED:-0}" && echo 1 || echo 0)"
@@ -109,6 +110,7 @@ check "R15" "Gateway/API and licensing workflow doc exists" "$(required_file doc
 check "R16" "Infra/legal/UIUX/AI/revenue strengthening plan exists" "$(required_file docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md && echo 1 || echo 0)"
 check "R17" "Cloudflare sync operations doc exists" "$(required_file docs/17_cloudflare_sync.md && echo 1 || echo 0)"
 check "R18" "AI operations guardrails doc exists" "$(required_file docs/18_ai_operations_guardrails.md && echo 1 || echo 0)"
+check "R19" "18-country licensing index doc exists" "$(required_file docs/19_license_register_index_18_countries.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"
