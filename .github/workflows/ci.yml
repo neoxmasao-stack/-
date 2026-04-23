@@ -21,4 +21,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: advisory-go-live-report
-          path: artifacts/go-live-report.md
+          path: |
+            artifacts/go-live-report.md
+            artifacts/legal-clean-report.md

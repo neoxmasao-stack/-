@@ -19,6 +19,7 @@
 
 ```bash
 make help
+make legal-clean
 make ci
 ```
 
@@ -80,3 +81,12 @@ make ci
 ```
 
 詳細は `docs/19_license_register_index_18_countries.md` を参照。
+
+
+## 法務クリーン確認
+
+```bash
+make legal-clean
+```
+
+レポート: `artifacts/legal-clean-report.md`
