@@ -6,7 +6,7 @@ help:
 	@echo "  make down                   # Stop local stack (placeholder)"
 	@echo "  make health                 # Run local health checks"
 	@echo "  make logs                   # Show local logs (placeholder)"
-	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12..22 + operating model)"
+	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12..23 + operating model)"
 	@echo "  make legal-clean            # Run legal/compliance clean checks and report"
 	@echo "  make grand-open-check       # Advisory external connectivity grand-open check"
 	@echo "  make grand-open-check-strict # Strict external connectivity grand-open check"
@@ -52,7 +52,7 @@ verify-docs:
 	@test -f docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md
 	@test -f docs/17_cloudflare_sync.md
 	@test -f docs/18_ai_operations_guardrails.md
-	@test -f docs/19_license_register_index_18_countries.md
+	@test -f docs/19_license_register_index_21_countries.md
 	@test -f docs/20_powershell_oneliners.md
 	@test -f docs/21_license_and_registry_hardening.md
 	@test -f docs/22_external_connectivity_grand_open_checklist.md

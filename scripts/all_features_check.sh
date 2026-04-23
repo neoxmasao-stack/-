@@ -31,11 +31,14 @@ record() {
 
 run_check() {
   local id="$1"; local desc="$2"; shift 2
-  if "$@" >/tmp/all_features_${id}.log 2>&1; then
+  local log_file
+  log_file="$(mktemp -t all_features_${id}.XXXXXX.log)"
+  if "$@" >"${log_file}" 2>&1; then
     record "$id" "$desc" "1"
   else
     record "$id" "$desc" "0"
   fi
+  rm -f "${log_file}"
 }
 
 run_check "F1" "go_live_check.sh syntax" bash -n scripts/go_live_check.sh

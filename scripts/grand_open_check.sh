@@ -11,7 +11,10 @@ else
   exit 2
 fi
 
-[[ -f .golive.env ]] && source .golive.env
+if [[ -f .golive.env ]]; then
+  # shellcheck disable=SC1091
+  source .golive.env
+fi
 
 mkdir -p artifacts
 report="artifacts/grand-open-report.md"
