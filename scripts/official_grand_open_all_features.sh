@@ -42,11 +42,12 @@ run_check "O1" "Go-live gate (${MODE})" bash scripts/go_live_check.sh "--${MODE}
 run_check "O2" "Grand-open gate (${MODE})" bash scripts/grand_open_check.sh "--${MODE}"
 run_check "O3" "All-features gate (${MODE})" bash scripts/all_features_check.sh "--${MODE}"
 run_check "O4" "External bank full-journey gate (${MODE})" bash scripts/external_bank_full_journey_check.sh "--${MODE}"
+run_check "O5" "Bank full-journey module gate (${MODE})" bash scripts/bank_full_journey_module_check.sh "--${MODE}"
 
 if command -v pwsh >/dev/null 2>&1; then
-  run_check "O5" "Official Go/No-Go PowerShell check" pwsh -NoProfile -File scripts/official_go_check.ps1
+  run_check "O6" "Official Go/No-Go PowerShell check" pwsh -NoProfile -File scripts/official_go_check.ps1
 else
-  record "O5" "Official Go/No-Go PowerShell check (pwsh not installed; skipped)" "1"
+  record "O6" "Official Go/No-Go PowerShell check (pwsh not installed; skipped)" "1"
 fi
 
 {

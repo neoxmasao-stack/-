@@ -142,6 +142,7 @@ make official-grand-open-all-features
 - `pwsh` が利用可能な環境では `scripts/official_go_check.ps1` も続けて実行します。
 - レポートは `artifacts/official-grand-open-all-features-report.md` に出力されます。
 - 外部接続の銀行業務全行程だけを確認する場合は `make external-bank-full-journey-check`（厳格判定は `make external-bank-full-journey-check-strict`）。
+- 銀行業務全行程モジュール観点の公式判定は `make bank-full-journey-module-check`（厳格判定は `make bank-full-journey-module-check-strict`）。
 - 全機能一覧（本番公式実弾）を生成: `make official-live-fire-list`（`artifacts/official-live-fire-feature-list.md`）
 - 本番公式実弾 strict 実行: `OFFICIAL_LIVE_FIRE_APPROVED=YES make official-live-fire-run`
 

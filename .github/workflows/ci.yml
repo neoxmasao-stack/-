@@ -25,6 +25,7 @@ jobs:
           bash -n scripts/cloudflare_sync.sh
           bash -n scripts/next_build_debug.sh
           bash -n scripts/external_bank_full_journey_check.sh
+          bash -n scripts/bank_full_journey_module_check.sh
           bash -n scripts/official_live_fire.sh
 
       - name: Advisory quality gates
@@ -53,6 +54,9 @@ jobs:
       - name: Run external bank full-journey check (advisory)
         run: bash scripts/external_bank_full_journey_check.sh --advisory
 
+      - name: Run bank full-journey module check (advisory)
+        run: bash scripts/bank_full_journey_module_check.sh --advisory
+
       - name: Upload grand-open connectivity report
         uses: actions/upload-artifact@v4
         with:
@@ -60,3 +64,4 @@ jobs:
           path: |
             artifacts/grand-open-report.md
             artifacts/external-bank-full-journey-report.md
+            artifacts/bank-full-journey-module-report.md

@@ -16,7 +16,9 @@ write_list_report() {
 
 ## External connectivity (bank full journey)
 - `make external-bank-full-journey-check-strict`
+- `make bank-full-journey-module-check-strict`
 - Report: `artifacts/external-bank-full-journey-report.md`
+- Report: `artifacts/bank-full-journey-module-report.md`
 
 ## Legal and docs prerequisites
 - `make verify-docs`

@@ -85,3 +85,17 @@ make external-bank-full-journey-check-strict
 - レポート: `artifacts/external-bank-full-journey-report.md`
 - 確認項目: onboarding / KYC-AML / account+ledger / transfer / ATM / card / filing ack / settlement-recon / recovery-DR / executive signoff
 - 変数: `.golive.env` の `CHECK_BANK_*` 系フラグで判定
+
+
+## 銀行業務全行程モジュール公式グランドオープン
+
+```bash
+make bank-full-journey-module-check
+# 本番判定
+make bank-full-journey-module-check-strict
+```
+
+- 実装: `scripts/bank_full_journey_module_check.sh`
+- レポート: `artifacts/bank-full-journey-module-report.md`
+- 変数: `.golive.env` の `CHECK_BANK_MODULE_*` フラグ
+- 用途: 全行程を機能別モジュールで監査し、公式グランドオープン判定の説明責任を高める
