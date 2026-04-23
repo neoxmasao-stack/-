@@ -6,7 +6,7 @@ help:
 	@echo "  make down                   # Stop local stack (placeholder)"
 	@echo "  make health                 # Run local health checks"
 	@echo "  make logs                   # Show local logs (placeholder)"
-	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12/13/14 + operating model + gateway/licensing + infra/legal/uiux/ai/revenue + cloudflare + ai-guardrails + 18-country-license-index + powershell-oneliners)"
+	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12/13/14 + operating model + gateway/licensing + infra/legal/uiux/ai/revenue + cloudflare + ai-guardrails + 18-country-license-index + powershell-oneliners + license/registry-hardening)"
 	@echo "  make legal-clean            # Run legal/compliance clean checks and report"
 	@echo "  make next-build-debug-local # Debug Next build (auto package manager detect)"
 	@echo "  make ci                     # CI-safe checks (syntax + advisory gate)"
@@ -50,6 +50,7 @@ verify-docs:
 	@test -f docs/18_ai_operations_guardrails.md
 	@test -f docs/19_license_register_index_18_countries.md
 	@test -f docs/20_powershell_oneliners.md
+	@test -f docs/21_license_and_registry_hardening.md
 	@echo "[verify-docs] required docs are present."
 
 legal-clean:

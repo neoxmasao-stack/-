@@ -44,6 +44,7 @@ make check-go-live
 - `docs/18_ai_operations_guardrails.md`
 - `docs/19_license_register_index_18_countries.md`
 - `docs/20_powershell_oneliners.md`
+- `docs/21_license_and_registry_hardening.md`
 
 ## リカバリ確認（PowerShell）
 

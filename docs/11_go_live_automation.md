@@ -23,13 +23,13 @@ make ci
 ```bash
 make verify-docs
 ```
-- 01〜10 + 12/13/14 + FIN-OS_ORG_OPERATING_MODEL + 15 + 16 + 17 + 18 + 19 + 20 の存在を確認
+- 01〜10 + 12/13/14 + FIN-OS_ORG_OPERATING_MODEL + 15 + 16 + 17 + 18 + 19 + 20 + 21 の存在を確認
 
 ### 法務クリーン確認
 ```bash
 make legal-clean
 ```
-- 法務/コンプラ文書の存在、禁止事項記載、人間承認境界、18カ国索引整合を検証
+- 法務/コンプラ文書の存在、禁止事項記載、人間承認境界、21カ国索引整合を検証
 - レポート: `artifacts/legal-clean-report.md`
 
 ### 本番判定（厳格）
@@ -70,13 +70,15 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; 
 
 
 ## Control model
-判定項目は A〜F + R（19含む）（Repository readiness）で管理。
+判定項目は A〜F + R（Repository readiness）で管理。
 
 - A. UI / Delivery
 - B. API / Control
 - C. Real-Money Readiness
 - D. Legal / Regulatory
   - D5. 21-country official licensing index
+  - D6. corporate registry tracking
+  - D7. license expiry alerting
 - E. Audit / Compliance
 - F. AI Operations Guardrails
 - R. Required docs / playbooks / operating model / gateway licensing / strengthening plan / cloudflare sync doc / ai guardrails doc
@@ -85,4 +87,4 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; 
 1. PRでは `make legal-clean` と `make ci` を必須化。
 2. リリース直前に Strict gate を手動実行。
 3. Go/No-Go会議で `artifacts/go-live-report.md` を証跡保管。
-4. 重大変更時は `docs/12` `docs/13` `docs/14` `docs/FIN-OS_ORG_OPERATING_MODEL.md` `docs/15_gateway_contracts_and_licensing_workflow.md` `docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md` `docs/17_cloudflare_sync.md` `docs/18_ai_operations_guardrails.md` `docs/19_license_register_index_18_countries.md` `docs/20_powershell_oneliners.md` を同時更新。
+4. 重大変更時は `docs/12` `docs/13` `docs/14` `docs/FIN-OS_ORG_OPERATING_MODEL.md` `docs/15_gateway_contracts_and_licensing_workflow.md` `docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md` `docs/17_cloudflare_sync.md` `docs/18_ai_operations_guardrails.md` `docs/19_license_register_index_18_countries.md` `docs/20_powershell_oneliners.md` `docs/21_license_and_registry_hardening.md` を同時更新。

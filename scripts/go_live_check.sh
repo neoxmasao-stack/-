@@ -75,6 +75,8 @@ check "D2" "Receipt / acknowledgement tracked" "$(is_true "${CHECK_ACK_TRACKING:
 check "D3" "Public listing + official portal refs maintained" "$(is_true "${CHECK_PORTAL_LISTING:-0}" && echo 1 || echo 0)"
 check "D4" "Original document hash verification tracked" "$(is_true "${CHECK_DOC_HASH_VERIFICATION:-0}" && echo 1 || echo 0)"
 check "D5" "21-country official licensing index maintained" "$(is_true "${CHECK_LICENSE_18_COUNTRY_INDEX:-0}" && echo 1 || echo 0)"
+check "D6" "Corporate registry tracking is complete" "$(is_true "${CHECK_CORPORATE_REGISTRY_TRACKING:-0}" && echo 1 || echo 0)"
+check "D7" "License expiry alerting is active" "$(is_true "${CHECK_LICENSE_EXPIRY_ALERTING:-0}" && echo 1 || echo 0)"
 
 # E. Audit / Compliance
 check "E1" "All state transitions logged" "$(is_true "${CHECK_ALL_TRANSITIONS_AUDITED:-0}" && echo 1 || echo 0)"
@@ -112,6 +114,7 @@ check "R17" "Cloudflare sync operations doc exists" "$(required_file docs/17_clo
 check "R18" "AI operations guardrails doc exists" "$(required_file docs/18_ai_operations_guardrails.md && echo 1 || echo 0)"
 check "R19" "21-country licensing index doc exists" "$(required_file docs/19_license_register_index_18_countries.md && echo 1 || echo 0)"
 check "R20" "PowerShell one-liner runbook exists" "$(required_file docs/20_powershell_oneliners.md && echo 1 || echo 0)"
+check "R21" "License/registry hardening guide exists" "$(required_file docs/21_license_and_registry_hardening.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"
