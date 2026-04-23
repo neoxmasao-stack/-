@@ -81,6 +81,13 @@ check "E2" "Correlation/request IDs tracked" "$(is_true "${CHECK_CORRELATION_IDS
 check "E3" "Manual vs machine verification separated" "$(is_true "${CHECK_MANUAL_MACHINE_SEPARATION:-0}" && echo 1 || echo 0)"
 check "E4" "Recovery path documented" "$(is_true "${CHECK_RECOVERY_PATH:-0}" && echo 1 || echo 0)"
 
+
+# F. AI Operations Guardrails
+check "F1" "AI role separation is enforced" "$(is_true "${CHECK_AI_ROLE_SEPARATION:-0}" && echo 1 || echo 0)"
+check "F2" "Human approval boundary enforced for AI actions" "$(is_true "${CHECK_AI_HUMAN_APPROVAL:-0}" && echo 1 || echo 0)"
+check "F3" "AI policy guard blocks dangerous operations" "$(is_true "${CHECK_AI_POLICY_GUARD:-0}" && echo 1 || echo 0)"
+check "F4" "AI decision traces are fully auditable" "$(is_true "${CHECK_AI_AUDIT_TRACE:-0}" && echo 1 || echo 0)"
+
 # Repository readiness checks
 check "R1" "Runbook exists" "$(required_file docs/07_ops_runbook.md && echo 1 || echo 0)"
 check "R2" "Security policy exists" "$(required_file docs/04_security_policy.md && echo 1 || echo 0)"
@@ -101,6 +108,7 @@ check "R14" "Org operating model exists" "$(required_file docs/FIN-OS_ORG_OPERAT
 check "R15" "Gateway/API and licensing workflow doc exists" "$(required_file docs/15_gateway_contracts_and_licensing_workflow.md && echo 1 || echo 0)"
 check "R16" "Infra/legal/UIUX/AI/revenue strengthening plan exists" "$(required_file docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md && echo 1 || echo 0)"
 check "R17" "Cloudflare sync operations doc exists" "$(required_file docs/17_cloudflare_sync.md && echo 1 || echo 0)"
+check "R18" "AI operations guardrails doc exists" "$(required_file docs/18_ai_operations_guardrails.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"

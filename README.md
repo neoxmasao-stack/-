@@ -40,6 +40,7 @@ make check-go-live
 - `docs/15_gateway_contracts_and_licensing_workflow.md`
 - `docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md`
 - `docs/17_cloudflare_sync.md`
+- `docs/18_ai_operations_guardrails.md`
 
 ## リカバリ確認（PowerShell）
 
@@ -57,3 +58,13 @@ make cloudflare-sync-production
 ```
 
 詳細は `docs/17_cloudflare_sync.md` を参照。
+
+
+## AI運用ガードレール
+
+```bash
+# advisory で AI ガードレール項目(F1-F4)も確認
+make ci
+```
+
+詳細は `docs/18_ai_operations_guardrails.md` を参照。
