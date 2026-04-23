@@ -34,3 +34,13 @@ make all-features-check-strict
 ## 一言で定義
 運用機能を個別に見るのではなく、
 **一つの入口で全機能の健全性を確認する統合点検**。
+
+
+## 公式グランドオープン全機能（新設）
+
+- 実行コマンド: `make official-grand-open-all-features`
+- 実行スクリプト: `scripts/official_grand_open_all_features.sh`
+- 内容: `go_live_check --strict` → `grand_open_check --strict` → `all_features_check --strict` を連続実行し、可能であれば `official_go_check.ps1` も実行。
+- 出力: `artifacts/official-grand-open-all-features-report.md`
+
+> `pwsh` が無い Linux 環境では PowerShell 判定は自動でスキップされます（レポートに明記）。

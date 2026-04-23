@@ -131,6 +131,17 @@ make next-build-debug-local
 - GitHub Actions 手動実行: `.github/workflows/next-build-debug.yml`。
 
 
+
+## 公式グランドオープン全機能チェック
+
+```bash
+make official-grand-open-all-features
+```
+
+- 厳格モードで `go_live_check` / `grand_open_check` / `all_features_check` を順番に実行します。
+- `pwsh` が利用可能な環境では `scripts/official_go_check.ps1` も続けて実行します。
+- レポートは `artifacts/official-grand-open-all-features-report.md` に出力されます。
+
 ## PowerShell ワンライナー
 
 ```powershell

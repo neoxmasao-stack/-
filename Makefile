@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory
 
 help:
 	@echo "Available targets:"
@@ -12,6 +12,8 @@ help:
 	@echo "  make grand-open-check-strict # Strict external connectivity grand-open check"
 	@echo "  make all-features-check      # Advisory integrated all-feature verification"
 	@echo "  make all-features-check-strict # Strict integrated all-feature verification"
+	@echo "  make official-grand-open-all-features # Official full gate (strict)"
+	@echo "  make official-grand-open-all-features-advisory # Official full gate (advisory)"
 	@echo "  make next-build-debug-local # Debug Next build (auto package manager detect)"
 	@echo "  make ci                     # CI-safe checks (syntax + advisory gates)"
 	@echo "  make check-go-live          # Strict go-live gate (fails if any control is missing)"
@@ -76,10 +78,17 @@ all-features-check:
 all-features-check-strict:
 	@bash scripts/all_features_check.sh --strict
 
+official-grand-open-all-features:
+	@bash scripts/official_grand_open_all_features.sh --strict
+
+official-grand-open-all-features-advisory:
+	@bash scripts/official_grand_open_all_features.sh --advisory
+
 ci: verify-docs legal-clean
 	@bash -n scripts/go_live_check.sh
 	@bash -n scripts/grand_open_check.sh
 	@bash -n scripts/all_features_check.sh
+	@bash -n scripts/official_grand_open_all_features.sh
 	@bash scripts/go_live_check.sh --advisory
 	@bash scripts/grand_open_check.sh --advisory
 	@bash scripts/all_features_check.sh --advisory
