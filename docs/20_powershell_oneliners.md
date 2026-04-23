@@ -82,3 +82,16 @@ gh pr view 7 --repo neoxmasao-stack/- --json number,title,url,headRefName,baseRe
 ```powershell
 Get-Location; Get-ChildItem .\run_checks.ps1,.\gh_auth_doctor.ps1,.\.golive.env.example -ErrorAction Stop
 ```
+
+## 12) MCP サーバー追加（Codex）
+```powershell
+codex mcp add context7 -- npx -y @upstash/context7-mcp
+codex mcp list
+```
+
+環境変数付き STDIO サーバー例:
+```powershell
+codex mcp add my-docs --env DOCS_TOKEN=$env:DOCS_TOKEN -- npx -y @acme/docs-mcp
+```
+
+詳細: `docs/24_mcp_setup_guide.md`

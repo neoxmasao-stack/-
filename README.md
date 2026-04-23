@@ -136,6 +136,7 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; 
 ```
 
 詳細: `docs/20_powershell_oneliners.md`
+MCP設定ガイド: `docs/24_mcp_setup_guide.md`
 
 PowerShell専用ラッパー（`make` 非依存）:
 
