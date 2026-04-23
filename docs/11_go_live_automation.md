@@ -4,7 +4,7 @@
 本ドキュメントは、本番公式運用までの判定を自動化する手順を定義する。
 
 - `Makefile`
-- `.github/workflows/ci.yml`（Advisory）
+- `.github/workflows/ci.yml`（Advisory + External connectivity grand-open confirmation）
 - `.github/workflows/release-gate.yml`（Strict）
 - `.github/workflows/cloudflare-sync.yml`（手動同期）
 - `scripts/go_live_check.sh`
