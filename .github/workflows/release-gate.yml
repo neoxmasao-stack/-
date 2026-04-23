@@ -1,0 +1,30 @@
+name: Release Gate (Strict)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  strict-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare strict config
+        run: |
+          if [ -f .golive.env ]; then
+            echo "Using repository .golive.env"
+          else
+            cp .golive.env.example .golive.env
+            echo "No .golive.env found; copied example (will fail until controls are set to 1)."
+          fi
+
+      - name: Run strict go-live gate
+        run: make check-go-live
+
+      - name: Upload strict report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: strict-go-live-report
+          path: artifacts/go-live-report.md

@@ -1,0 +1,54 @@
+# 20 PowerShell ワンライナー command 集
+
+## 目的
+Windows運用で「コピペ1行」で実行できるように、主要オペレーションを PowerShell ワンライナー化する。
+
+## 1) 前提確認（ルートで実行）
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; Get-Location; Get-ChildItem Makefile,README.md,docs -ErrorAction Stop | Select-Object Name
+```
+
+## 2) Advisory CI（法務クリーン + Go-Live）
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make ci
+```
+
+## 3) 法務クリーン確認のみ
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make legal-clean; Get-Content .\artifacts\legal-clean-report.md
+```
+
+## 4) ドキュメント完全性チェック
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs
+```
+
+## 5) Strict Gate（本番判定）
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; if (!(Test-Path .\.golive.env)) { Copy-Item .\.golive.env.example .\.golive.env }; make check-go-live
+```
+
+## 6) Cloudflare同期 Dry-run
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; $env:CLOUDFLARE_API_TOKEN='***'; $env:CLOUDFLARE_ACCOUNT_ID='***'; make cloudflare-sync-dry-run
+```
+
+## 7) Cloudflare同期 Staging
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; $env:CLOUDFLARE_API_TOKEN='***'; $env:CLOUDFLARE_ACCOUNT_ID='***'; make cloudflare-sync-staging
+```
+
+## 8) Next.js build debug（pnpm not found対策）
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make next-build-debug-local
+```
+
+## 9) 21カ国当局索引 + 法務クリーン + Advisory を連続実行
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; make legal-clean; make check-go-live-advisory
+```
+
+## 10) レポート確認（Go-Live / Legal）
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; Get-Content .\artifacts\go-live-report.md; Get-Content .\artifacts\legal-clean-report.md
+```
