@@ -8,7 +8,10 @@ Set-Location $RepoPath
 
 $buildPath = 'ops-evidence/status/build-state.json'
 $truthPath = 'ops-evidence/status/release-truth-state.json'
-$judgePath = 'ops-evidence/status/final-operation-judge-state.json'
+$judgeCandidates = @(
+  'ops-evidence/status/judge-verdict.json',
+  'ops-evidence/status/final-operation-judge-state.json'
+)
 
 foreach ($p in @($buildPath, $truthPath)) {
   if (-not (Test-Path $p)) {
@@ -19,8 +22,11 @@ foreach ($p in @($buildPath, $truthPath)) {
 $build = Get-Content $buildPath -Raw | ConvertFrom-Json
 $truth = Get-Content $truthPath -Raw | ConvertFrom-Json
 $judge = $null
-if (Test-Path $judgePath) {
-  $judge = Get-Content $judgePath -Raw | ConvertFrom-Json
+foreach ($jp in $judgeCandidates) {
+  if (Test-Path $jp) {
+    $judge = Get-Content $jp -Raw | ConvertFrom-Json
+    break
+  }
 }
 
 Write-Host '=== Official Go/No-Go Check ===' -ForegroundColor Cyan
@@ -39,13 +45,26 @@ if ($build.PSObject.Properties['web'] -and $build.web.PSObject.Properties['reaso
   Write-Host ("BUILD reason: {0}" -f $build.web.reason) -ForegroundColor Yellow
 }
 
-$truthState = if ($truth.PSObject.Properties['state']) { $truth.state } else { 'UNKNOWN' }
+$truthState = 'UNKNOWN'
+foreach ($field in @('state', 'status', 'overall_state', 'release_truth_state')) {
+  if ($truth.PSObject.Properties[$field] -and $truth.$field) {
+    $truthState = [string]$truth.$field
+    break
+  }
+}
 $truthReason = if ($truth.PSObject.Properties['reason']) { $truth.reason } else { '' }
 Write-Host ("RELEASE_TRUTH state={0} reason={1}" -f $truthState, $truthReason)
 
+$blockingItems = @()
 if ($truth.PSObject.Properties['blocking'] -and $truth.blocking) {
+  $blockingItems = @($truth.blocking)
+} elseif ($truth.PSObject.Properties['blocking_reasons'] -and $truth.blocking_reasons) {
+  $blockingItems = @($truth.blocking_reasons)
+}
+
+if ($blockingItems.Count -gt 0) {
   Write-Host "--- blocking items ---" -ForegroundColor Yellow
-  foreach ($b in $truth.blocking) {
+  foreach ($b in $blockingItems) {
     Write-Host ("- {0}" -f $b)
   }
 
@@ -57,11 +76,12 @@ if ($truth.PSObject.Properties['blocking'] -and $truth.blocking) {
     'FILINGS:filings_missing',
     'FILINGS:regulatory_submissions_missing',
     'ATM:atm_transactions_missing',
-    'ATM:atm_tokens_missing'
+    'ATM:atm_tokens_missing',
+    'release_truth_fetch_failed'
   )
   Write-Host "--- priority fixes ---" -ForegroundColor Cyan
   foreach ($p in $priority) {
-    if ($truth.blocking -contains $p) {
+    if ($blockingItems -contains $p) {
       Write-Host ("* {0}" -f $p) -ForegroundColor Red
     }
   }
@@ -73,12 +93,16 @@ if ($judge) {
   Write-Host ("FINAL_JUDGE verdict={0} reason={1}" -f $verdict, $reason)
 }
 
-$noGo = (-not $webOk) -or ($truthState -ne 'GO')
+$truthReady = @('GO', 'RELEASE_TRUTH_READY', 'READY') -contains $truthState
+$noGo = (-not $webOk) -or (-not $truthReady)
 if ($noGo) {
   Write-Host 'RESULT: NO_GO (BUILD_VERIFIED or RELEASE_TRUTH_READY is unmet)' -ForegroundColor Red
-  Write-Host 'Summary: 本質は Web build failure + release truth blockers.' -ForegroundColor Red
-  Write-Host 'Next #1: npm run build で Web build failure を解消' -ForegroundColor Yellow
-  Write-Host 'Next #2: release truth の blocking を埋める (transfer/card/filings/ATM/license coverage)' -ForegroundColor Yellow
+  if (-not $webOk) {
+    Write-Host 'Next #1: npm run build で Web build failure を解消' -ForegroundColor Yellow
+  }
+  if (-not $truthReady) {
+    Write-Host 'Next #2: release truth の blocking を解消（API応答 schema / データ欠損 / 接続失敗）' -ForegroundColor Yellow
+  }
   if ($FailOnNoGo) {
     exit 1
   }
