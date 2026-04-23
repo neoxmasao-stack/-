@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bash syntax check
+        run: bash -n scripts/go_live_check.sh
+
+      - name: Advisory go-live gate
+        run: make ci
+
+      - name: Upload advisory report
+        uses: actions/upload-artifact@v4
+        with:
+          name: advisory-go-live-report
+          path: artifacts/go-live-report.md
