@@ -43,6 +43,7 @@ make check-go-live
 - `docs/17_cloudflare_sync.md`
 - `docs/18_ai_operations_guardrails.md`
 - `docs/19_license_register_index_18_countries.md`
+- `docs/20_powershell_oneliners.md`
 
 ## リカバリ確認（PowerShell）
 
@@ -101,3 +102,12 @@ make next-build-debug-local
 - `scripts/next_build_debug.sh` は package manager を自動判定し、`pnpm` が必要な場合は `corepack` で有効化してから `next build` を実行します。
 - `npx next info` は情報取得失敗で全体を止めないよう `|| true` で実行します。
 - GitHub Actions 手動実行: `.github/workflows/next-build-debug.yml`。
+
+
+## PowerShell ワンライナー
+
+```powershell
+Set-Location C:\Users\aiktn\fin-os-prod; make verify-docs; make legal-clean; make check-go-live-advisory
+```
+
+詳細: `docs/20_powershell_oneliners.md`

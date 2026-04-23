@@ -111,6 +111,7 @@ check "R16" "Infra/legal/UIUX/AI/revenue strengthening plan exists" "$(required_
 check "R17" "Cloudflare sync operations doc exists" "$(required_file docs/17_cloudflare_sync.md && echo 1 || echo 0)"
 check "R18" "AI operations guardrails doc exists" "$(required_file docs/18_ai_operations_guardrails.md && echo 1 || echo 0)"
 check "R19" "18-country licensing index doc exists" "$(required_file docs/19_license_register_index_18_countries.md && echo 1 || echo 0)"
+check "R20" "PowerShell one-liner runbook exists" "$(required_file docs/20_powershell_oneliners.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"

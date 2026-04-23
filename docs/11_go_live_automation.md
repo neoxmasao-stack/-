@@ -23,7 +23,7 @@ make ci
 ```bash
 make verify-docs
 ```
-- 01〜10 + 12/13/14 + FIN-OS_ORG_OPERATING_MODEL + 15 + 16 + 17 + 18 + 19 の存在を確認
+- 01〜10 + 12/13/14 + FIN-OS_ORG_OPERATING_MODEL + 15 + 16 + 17 + 18 + 19 + 20 の存在を確認
 
 ### 法務クリーン確認
 ```bash
@@ -61,6 +61,14 @@ make next-build-debug-local
 - 手動ワークフロー: `.github/workflows/next-build-debug.yml`
 
 
+### PowerShell ワンライナー
+```powershell
+Set-Location C:\Users\aiktn\fin-os-prod; make verify-docs; make legal-clean; make check-go-live-advisory
+```
+- Windows運用用テンプレート: `docs/20_powershell_oneliners.md`
+
+
+
 ## Control model
 判定項目は A〜F + R（19含む）（Repository readiness）で管理。
 
@@ -77,4 +85,4 @@ make next-build-debug-local
 1. PRでは `make legal-clean` と `make ci` を必須化。
 2. リリース直前に Strict gate を手動実行。
 3. Go/No-Go会議で `artifacts/go-live-report.md` を証跡保管。
-4. 重大変更時は `docs/12` `docs/13` `docs/14` `docs/FIN-OS_ORG_OPERATING_MODEL.md` `docs/15_gateway_contracts_and_licensing_workflow.md` `docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md` `docs/17_cloudflare_sync.md` `docs/18_ai_operations_guardrails.md` `docs/19_license_register_index_18_countries.md` を同時更新。
+4. 重大変更時は `docs/12` `docs/13` `docs/14` `docs/FIN-OS_ORG_OPERATING_MODEL.md` `docs/15_gateway_contracts_and_licensing_workflow.md` `docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md` `docs/17_cloudflare_sync.md` `docs/18_ai_operations_guardrails.md` `docs/19_license_register_index_18_countries.md` `docs/20_powershell_oneliners.md` を同時更新。
