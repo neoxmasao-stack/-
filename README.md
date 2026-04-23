@@ -38,6 +38,7 @@ make check-go-live
 - `docs/14_ui_ux_wireframes_and_nextjs_map.md`
 - `docs/FIN-OS_ORG_OPERATING_MODEL.md`
 - `docs/15_gateway_contracts_and_licensing_workflow.md`
+- `docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md`
 
 ## リカバリ確認（PowerShell）
 

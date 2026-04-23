@@ -99,6 +99,7 @@ check "R12" "Unified architecture blueprint exists" "$(required_file docs/13_fin
 check "R13" "UI/UX + Next.js mapping exists" "$(required_file docs/14_ui_ux_wireframes_and_nextjs_map.md && echo 1 || echo 0)"
 check "R14" "Org operating model exists" "$(required_file docs/FIN-OS_ORG_OPERATING_MODEL.md && echo 1 || echo 0)"
 check "R15" "Gateway/API and licensing workflow doc exists" "$(required_file docs/15_gateway_contracts_and_licensing_workflow.md && echo 1 || echo 0)"
+check "R16" "Infra/legal/UIUX/AI/revenue strengthening plan exists" "$(required_file docs/16_financial_infra_legal_uiux_ai_revenue_strengthening.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"
