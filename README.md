@@ -137,5 +137,12 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; 
 
 詳細: `docs/20_powershell_oneliners.md`
 
+PowerShell専用ラッパー（`make` 非依存）:
+
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_checks.ps1 -Task ci -Mode advisory
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_checks.ps1 -Task go-live -Mode strict
+```
+
 
 CIでは `advisory-quality-gate` に加え、`grand-open-external-connectivity` ジョブで外部接続グランドオープン確認を実行します。

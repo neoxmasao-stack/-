@@ -3,6 +3,13 @@
 ## 目的
 Windows運用で「コピペ1行」で実行できるように、主要オペレーションを PowerShell ワンライナー化する。
 
+## 0) PowerShell専用ラッパー（make不要）
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_checks.ps1 -Task ci -Mode advisory
+```
+- `scripts/run_checks.ps1` は `verify-docs / legal-clean / go-live / grand-open / all-features / ci` を PowerShell から直接実行可能。
+- 内部で Bashスクリプトを呼ぶため、`bash`（Git Bash または WSL）が必要。
+
 ## 1) 前提確認（ルートで実行）
 ```powershell
 Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; Get-Location; Get-ChildItem Makefile,README.md,docs -ErrorAction Stop | Select-Object Name
@@ -26,6 +33,11 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs
 ## 5) Strict Gate（本番判定）
 ```powershell
 Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; if (!(Test-Path .\.golive.env)) { Copy-Item .\.golive.env.example .\.golive.env }; make check-go-live
+```
+
+PowerShellラッパー版:
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; if (!(Test-Path .\.golive.env)) { Copy-Item .\.golive.env.example .\.golive.env }; .\scripts\run_checks.ps1 -Task go-live -Mode strict
 ```
 
 ## 6) Cloudflare同期 Dry-run
