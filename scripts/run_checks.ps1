@@ -1,5 +1,5 @@
 param(
-  [ValidateSet('verify-docs','legal-clean','go-live','grand-open','all-features','official-go','ci')]
+  [ValidateSet('verify-docs','legal-clean','go-live','grand-open','all-features','official-go','official-grand-open','bank-full-journey','bank-module','live-fire-list','live-fire-run','ci')]
   [string]$Task = 'ci',
 
   [ValidateSet('advisory','strict')]
@@ -90,6 +90,24 @@ switch ($Task) {
     if ($LASTEXITCODE -ne 0) {
       throw 'official_go_check.ps1 failed.'
     }
+  }
+  'official-grand-open' {
+    $arg = if ($Mode -eq 'strict') { '--strict' } else { '--advisory' }
+    Invoke-BashScript 'scripts/official_grand_open_all_features.sh' $arg
+  }
+  'bank-full-journey' {
+    $arg = if ($Mode -eq 'strict') { '--strict' } else { '--advisory' }
+    Invoke-BashScript 'scripts/external_bank_full_journey_check.sh' $arg
+  }
+  'bank-module' {
+    $arg = if ($Mode -eq 'strict') { '--strict' } else { '--advisory' }
+    Invoke-BashScript 'scripts/bank_full_journey_module_check.sh' $arg
+  }
+  'live-fire-list' {
+    Invoke-BashScript 'scripts/official_live_fire.sh' 'list'
+  }
+  'live-fire-run' {
+    Invoke-BashScript 'scripts/official_live_fire.sh' 'run'
   }
   'ci' {
     Test-RequiredDocs

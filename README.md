@@ -145,6 +145,8 @@ make official-grand-open-all-features
 - 銀行業務全行程モジュール観点の公式判定は `make bank-full-journey-module-check`（厳格判定は `make bank-full-journey-module-check-strict`）。
 - 全機能一覧（本番公式実弾）を生成: `make official-live-fire-list`（`artifacts/official-live-fire-feature-list.md`）
 - 本番公式実弾 strict 実行: `OFFICIAL_LIVE_FIRE_APPROVED=YES make official-live-fire-run`
+- PowerShellワンライナー（全機能公式グランドオープン）: `Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task official-grand-open -Mode strict`
+- PowerShellワンライナー（銀行業務全行程モジュール）: `Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task bank-full-journey -Mode strict; .\run_checks.ps1 -Task bank-module -Mode strict`
 
 ## PowerShell ワンライナー
 

@@ -7,9 +7,25 @@ Windows運用で「コピペ1行」で実行できるように、主要オペレ
 ```powershell
 Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task ci -Mode advisory
 ```
-- `scripts/run_checks.ps1` は `verify-docs / legal-clean / go-live / grand-open / all-features / ci` を PowerShell から直接実行可能。
+- `scripts/run_checks.ps1` は `verify-docs / legal-clean / go-live / grand-open / all-features / official-grand-open / bank-full-journey / bank-module / live-fire-list / live-fire-run / ci` を PowerShell から直接実行可能。
 - 内部で Bashスクリプトを呼ぶため、`bash`（Git Bash または WSL）が必要。
 - ルートに `run_checks.ps1` ラッパーを追加したため、`.\scripts\...` ではなく `.\run_checks.ps1` で実行可能。
+
+
+## 0.1) 全機能公式グランドオープン（PowerShell ワンライナー）
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task official-grand-open -Mode strict
+```
+
+銀行業務全行程モジュールを含めるワンライナー:
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task bank-full-journey -Mode strict; .\run_checks.ps1 -Task bank-module -Mode strict
+```
+
+本番公式実弾（明示承認付き）:
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; $env:OFFICIAL_LIVE_FIRE_APPROVED='YES'; .\run_checks.ps1 -Task live-fire-run -Mode strict
+```
 
 ## 1) 前提確認（ルートで実行）
 ```powershell
