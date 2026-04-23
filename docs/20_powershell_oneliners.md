@@ -105,3 +105,8 @@ Set-Location "C:\Users\aiktn\fin-os-prod"; .\scripts\license_readiness_check.ps1
 ```powershell
 Set-Location "C:\Users\aiktn\fin-os-prod"; Get-Content .\ops-evidence\audit\legal-canonicalize.ndjson -Tail 5; Get-Content .\ops-evidence\status\legal-canonicalize-state.json
 ```
+
+## 14) 最終採否チェック（ci/release-truth/d1-verify/evidence-export/0007）
+```powershell
+Set-Location "C:\Users\aiktn\fin-os-prod"; .\scripts\final_adoption_check.ps1
+```

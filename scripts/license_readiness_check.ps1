@@ -43,4 +43,8 @@ foreach ($f in $fields) {
 Write-Host "\n--- audit tail (last 5) ---" -ForegroundColor Yellow
 $tail | ForEach-Object { Write-Host $_ }
 
+Write-Host "\n=== 実務判断サマリー ===" -ForegroundColor Cyan
+Write-Host "GO: canonical seed / audit / state update / 再実行安定" -ForegroundColor Green
+Write-Host "HOLD: expiry alert / revoked-lapsed / portal freshness / original hash read-back / 個票精度検証" -ForegroundColor Yellow
+Write-Host "結論: ライセンス等は『台帳としては良い』『統制としては強化余地あり』" -ForegroundColor Green
 Write-Host "\nHint: 失効/期限管理は docs/21 と docs/22 の次フェーズ要件を確認してください。" -ForegroundColor Green
