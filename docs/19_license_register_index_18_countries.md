@@ -1,58 +1,65 @@
-# 19 交付金融免許番号（18カ国）当局公式サイト掲載一覧 + インデックス検索設計
+# 19 交付金融ライセンス（18カ国）当局公式掲載 詳細一覧 + インデックス検索設計
 
 ## 目的
-- 18カ国について、**当局公式サイトの免許/登録確認ページ**を単一インデックスで検索可能にする。
-- AIオペレーションが「どの当局で、どのURLを、どう照合したか」を証跡化できるようにする。
+- 18カ国の**交付ライセンス確認先（当局公式）**を、監査可能な1つの参照台帳として固定化する。
+- AI/ブラウザー検索運用時に、国別の「どこを見ればよいか」「何を証跡化すべきか」を明確化する。
 
-## 18カ国 公式掲載先（一次ソース）
-| No | 国 | 主管当局 | 公式掲載URL（免許/登録照会） | 検索キー例 |
-|---:|---|---|---|---|
-| 1 | 日本 | 金融庁 (FSA) | https://www.fsa.go.jp/en/regulated/licensed/index.html | 法人名 / 登録区分 |
-| 2 | 米国 | FDIC | https://banks.data.fdic.gov/bankfind-suite/ | Bank Name / FDIC Cert |
-| 3 | 英国 | FCA | https://www.fca.org.uk/firms/financial-services-register | FRN / Firm Name |
-| 4 | アイルランド | Central Bank of Ireland | https://registers.centralbank.ie/ | Firm Name / Register Type |
-| 5 | フランス | ACPR (REGAFI) | https://www.regafi.fr/ | RCS / Nom |
-| 6 | ドイツ | BaFin | https://www.bafin.de/EN/PublikationenDaten/Datenbanken/datenbanken_artikel_en.html | Company / Register |
-| 7 | オランダ | DNB | https://www.dnb.nl/en/public-register/ | Institution Name |
-| 8 | スペイン | Banco de España | https://www.bde.es/wbe/en/punto-informacion/contenidos/registros/registros-entidades/ | Entidad / Código |
-| 9 | イタリア | Banca d'Italia | https://www.bancaditalia.it/compiti/vigilanza/albi-elenchi/ | Intermediario / Albo |
-|10 | スイス | FINMA | https://www.finma.ch/en/finma-public/authorised-institutions-individuals-and-products/ | Institution / Category |
-|11 | オーストラリア | APRA | https://www.apra.gov.au/registers | Entity Name |
-|12 | シンガポール | MAS | https://eservices.mas.gov.sg/fid | Institution / Licence Type |
-|13 | 香港 | HKMA | https://apps.hkma.gov.hk/ | Institution / Register Type |
-|14 | インド | RBI | https://rbi.org.in/CommonPerson/english/scripts/banksinindia.aspx | Bank Name / Category |
-|15 | サウジアラビア | SAMA | https://www.sama.gov.sa/en-US/LicenseEntities/Pages/LicensedBanks.aspx | Licensed Entity Name |
-|16 | UAE | CBUAE | https://www.centralbank.ae/en/licensing/ | Institution Name |
-|17 | ブラジル | Banco Central do Brasil | https://dadosabertos.bcb.gov.br/dataset/relacao-de-instituicoes-em-funcionamento-no-pais | CNPJ / Institution |
-|18 | メキシコ | CNBV | https://www.cnbv.gob.mx/Paginas/InfoPES.aspx | Entidad / Sector |
+## 18カ国 詳細一覧（公式一次ソース）
+| No | 国 | 主管当局 | ライセンス種別（例） | 公式掲載URL | 主検索キー | 必須証跡 |
+|---:|---|---|---|---|---|---|
+| 1 | 日本 | 金融庁 (FSA) | 銀行/資金移動/金商/貸金 | https://www.fsa.go.jp/en/regulated/licensed/index.html | 法人名/登録区分 | URL・取得日時・掲載名ハッシュ |
+| 2 | 米国 | FDIC | Insured Bank | https://banks.data.fdic.gov/bankfind-suite/ | Bank Name/FDIC Cert | Cert番号・画面スナップハッシュ |
+| 3 | 英国 | FCA | Authorized Firm/EMI/PI | https://www.fca.org.uk/firms/financial-services-register | FRN/Firm Name | FRN・Status・有効日 |
+| 4 | アイルランド | Central Bank of Ireland | Authorized Firms | https://registers.centralbank.ie/ | Firm Name/Register | 登録ID・カテゴリ |
+| 5 | フランス | ACPR (REGAFI) | Bank/Payment Institution | https://www.regafi.fr/ | RCS/Nom | REGAFI結果・ステータス |
+| 6 | ドイツ | BaFin | Credit/Payment/E-money | https://www.bafin.de/EN/PublikationenDaten/Datenbanken/datenbanken_artikel_en.html | Company/Register | 登録DB名・照合結果 |
+| 7 | オランダ | DNB | Financial Institutions | https://www.dnb.nl/en/public-register/ | Institution Name | レジスタ種別・状態 |
+| 8 | スペイン | Banco de España | Entidades de crédito | https://www.bde.es/wbe/en/punto-informacion/contenidos/registros/registros-entidades/ | Entidad/Código | コード・掲載区分 |
+| 9 | イタリア | Banca d'Italia | Albi/Elenchi intermediari | https://www.bancaditalia.it/compiti/vigilanza/albi-elenchi/ | Intermediario/Albo | Albo番号・カテゴリ |
+|10 | スイス | FINMA | Authorized Institutions | https://www.finma.ch/en/finma-public/authorised-institutions-individuals-and-products/ | Institution/Category | FINMA掲載状態 |
+|11 | オーストラリア | APRA | ADI/Financial Entity | https://www.apra.gov.au/registers | Entity Name | Register名・Entity抽出 |
+|12 | シンガポール | MAS | Financial Institution/License | https://eservices.mas.gov.sg/fid | Institution/Licence Type | FID結果・ライセンス区分 |
+|13 | 香港 | HKMA | Authorized Institutions | https://apps.hkma.gov.hk/ | Institution/Register | 掲載画面ID・状態 |
+|14 | インド | RBI | Scheduled/Commercial Banks | https://rbi.org.in/CommonPerson/english/scripts/banksinindia.aspx | Bank Name/Category | 掲載カテゴリ・名称一致 |
+|15 | サウジアラビア | SAMA | Licensed Banks/Finance | https://www.sama.gov.sa/en-US/LicenseEntities/Pages/LicensedBanks.aspx | Licensed Entity | ライセンス区分・掲載名 |
+|16 | UAE | CBUAE | Licensed Financial Institutions | https://www.centralbank.ae/en/licensing/ | Institution Name | 登録区分・掲載根拠URL |
+|17 | ブラジル | Banco Central do Brasil | Instituições em funcionamento | https://dadosabertos.bcb.gov.br/dataset/relacao-de-instituicoes-em-funcionamento-no-pais | CNPJ/Institution | CNPJ一致・データ日付 |
+|18 | メキシコ | CNBV | Entidades supervisadas | https://www.cnbv.gob.mx/Paginas/InfoPES.aspx | Entidad/Sector | セクター・掲載状況 |
 
-## AI運用（確認フロー）
-1. 入力された法人名・英語表記・既知ID（LEI/BIC等）を正規化。
-2. 上記18カ国インデックスから対象国の当局URLを決定。
-3. ブラウザーで公式掲載ページを検索（社名、番号、支店名）。
-4. 一致結果を `source_url`, `captured_at`, `raw_name`, `license_id` で記録。
-5. 手動レビュー者が `verified=true/false` を確定。
+## 国別照合手順（共通）
+1. 法人名（現地語/英語）を正規化。
+2. 国コードから当局URLを引く。
+3. 公式掲載で「番号一致 > 名称一致 > 住所一致」の順で照合。
+4. 一致結果を証跡保存（必須証跡カラム）。
+5. AIは候補提示のみ、最終確定は人間承認。
 
-## ブラウザー掲載・インデックス検索エンジン要件
-- **Index Source**: `docs/19_license_register_index_18_countries.md` のテーブルを正とする。
-- **Search Mode**:
-  - exact match（免許番号/登録番号）
-  - normalized name match（全角半角・法人格揺れ吸収）
-  - alias match（英語名/ブランド名）
-- **Evidence**:
-  - `country`, `authority`, `source_url`, `query`, `result_snapshot_hash`, `reviewer`, `audit_id`
-- **Safety**:
-  - 公式ドメイン以外を証跡として採用しない。
-  - AI単独で最終確定しない（human approval 必須）。
+## ブラウザー検索 / インデックスエンジン要件
+- **Index Source of Truth**: 本ドキュメントの18カ国テーブル。
+- **検索モード**:
+  - exact: 免許番号/登録番号
+  - normalized: 法人格除去・全半角変換
+  - alias: 英語名/ブランド名
+- **ランキング**:
+  - score = 番号一致(0.7) + 正規化名称一致(0.2) + 住所一致(0.1)
+- **採用閾値**:
+  - score >= 0.85: strong match
+  - 0.60〜0.84: manual review
+  - <0.60: reject
 
-## D1 保存フィールド（最小）
+## AI運用（掲載確認）
+- AI入力: `entity_name`, `country_code`, `known_ids`(license/LEI/BIC)
+- AI出力: `matched_authority_url`, `candidate_records[]`, `confidence`, `reason`
+- 人間承認: `approved_by`, `approved_at`, `approval_reason`
+
+## D1保存フィールド（最小）
 - `country_code`
 - `authority_name`
 - `authority_registry_url`
+- `license_category`
 - `entity_name_input`
 - `entity_name_matched`
 - `license_number`
-- `match_confidence`
+- `match_score`
 - `source_captured_at`
 - `evidence_hash`
 - `reviewer_role`
@@ -60,6 +67,6 @@
 - `audit_id`
 
 ## 運用ルール
-- 月次でURL生存確認（HTTP 200 / リダイレクト妥当性）
-- 四半期で当局サイト仕様変更を点検
-- 仕様変更時は `docs/19` を先に更新し、次に実装を更新
+- 月次で18URLの生存確認（HTTP 200 / 301 / 302）
+- 四半期で当局サイト構造変更を差分点検
+- 変更時は `docs/19` → 実装/クローラ設定 の順で更新
