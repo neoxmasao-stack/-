@@ -5,10 +5,11 @@ Windows運用で「コピペ1行」で実行できるように、主要オペレ
 
 ## 0) PowerShell専用ラッパー（make不要）
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_checks.ps1 -Task ci -Mode advisory
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task ci -Mode advisory
 ```
 - `scripts/run_checks.ps1` は `verify-docs / legal-clean / go-live / grand-open / all-features / ci` を PowerShell から直接実行可能。
 - 内部で Bashスクリプトを呼ぶため、`bash`（Git Bash または WSL）が必要。
+- ルートに `run_checks.ps1` ラッパーを追加したため、`.\scripts\...` ではなく `.\run_checks.ps1` で実行可能。
 
 ## 1) 前提確認（ルートで実行）
 ```powershell
@@ -37,7 +38,7 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; if (!(Test-Path .\
 
 PowerShellラッパー版:
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; if (!(Test-Path .\.golive.env)) { Copy-Item .\.golive.env.example .\.golive.env }; .\scripts\run_checks.ps1 -Task go-live -Mode strict
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; if (!(Test-Path .\.golive.env)) { Copy-Item .\.golive.env.example .\.golive.env }; .\run_checks.ps1 -Task go-live -Mode strict
 ```
 
 ## 6) Cloudflare同期 Dry-run
@@ -67,7 +68,7 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; Get-Content .\arti
 
 ## 11) `gh` 認証エラー（401 Bad credentials）復旧
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\gh_auth_doctor.ps1 -ClearPersisted -Repo "neoxmasao-stack/-" -PrNumber 7
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\gh_auth_doctor.ps1 -ClearPersisted -Repo "neoxmasao-stack/-" -PrNumber 7
 ```
 - `GITHUB_TOKEN` / `GH_TOKEN` の衝突をクリアし、`gh auth status` と `gh api user` で有効性を検証。
 - 実行ディレクトリの `git root / HEAD / remote` も表示するため、「別リポジトリにいる」問題を先に検知できる。
@@ -77,7 +78,7 @@ gh pr checkout 7 --repo neoxmasao-stack/-
 gh pr view 7 --repo neoxmasao-stack/- --json number,title,url,headRefName,baseRefName,state
 ```
 
-スクリプトが見つからない場合（`The term '.\scripts\gh_auth_doctor.ps1' is not recognized`）は、現在位置がこのリポジトリか確認:
+スクリプトが見つからない場合（`The term '.\run_checks.ps1' is not recognized`）は、現在位置と必須ファイルを確認:
 ```powershell
-Get-Location; Get-ChildItem .\scripts\gh_auth_doctor.ps1
+Get-Location; Get-ChildItem .\run_checks.ps1,.\gh_auth_doctor.ps1,.\.golive.env.example -ErrorAction Stop
 ```

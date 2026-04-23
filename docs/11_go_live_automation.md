@@ -86,7 +86,7 @@ make next-build-debug-local
 Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; make legal-clean; make check-go-live-advisory
 ```
 - Windows運用用テンプレート: `docs/20_powershell_oneliners.md`
-- `make` を使わない場合: `.\scripts\run_checks.ps1 -Task ci -Mode advisory`
+- `make` を使わない場合: `.\run_checks.ps1 -Task ci -Mode advisory`
 
 
 

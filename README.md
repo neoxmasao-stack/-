@@ -140,14 +140,14 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; 
 PowerShell専用ラッパー（`make` 非依存）:
 
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_checks.ps1 -Task ci -Mode advisory
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_checks.ps1 -Task go-live -Mode strict
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task ci -Mode advisory
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task go-live -Mode strict
 ```
 
 `gh` で `HTTP 401: Bad credentials` が出る場合:
 
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\gh_auth_doctor.ps1 -ClearPersisted -Repo "neoxmasao-stack/-" -PrNumber 7
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\gh_auth_doctor.ps1 -ClearPersisted -Repo "neoxmasao-stack/-" -PrNumber 7
 ```
 
 
