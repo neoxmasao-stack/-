@@ -44,3 +44,13 @@ make all-features-check-strict
 - 出力: `artifacts/official-grand-open-all-features-report.md`
 
 > `pwsh` が無い Linux 環境では PowerShell 判定は自動でスキップされます（レポートに明記）。
+
+
+## 一全機能一覧・本番公式実弾
+
+- 一覧生成: `make official-live-fire-list`
+- 実行: `OFFICIAL_LIVE_FIRE_APPROVED=YES make official-live-fire-run`
+- 一覧レポート: `artifacts/official-live-fire-feature-list.md`
+- 実行レポート: `artifacts/official-live-fire-execution.md`
+
+> `official-live-fire-run` は確認用環境変数が無い場合、誤実行防止のため終了コード2で停止。

@@ -25,6 +25,7 @@ jobs:
           bash -n scripts/cloudflare_sync.sh
           bash -n scripts/next_build_debug.sh
           bash -n scripts/external_bank_full_journey_check.sh
+          bash -n scripts/official_live_fire.sh
 
       - name: Advisory quality gates
         run: make ci

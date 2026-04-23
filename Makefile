@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory external-bank-full-journey-check external-bank-full-journey-check-strict
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory external-bank-full-journey-check external-bank-full-journey-check-strict official-live-fire-list official-live-fire-run
 
 help:
 	@echo "Available targets:"
@@ -16,6 +16,8 @@ help:
 	@echo "  make official-grand-open-all-features-advisory # Official full gate (advisory)"
 	@echo "  make external-bank-full-journey-check # 外部接続 銀行業務全行程 (advisory)"
 	@echo "  make external-bank-full-journey-check-strict # 外部接続 銀行業務全行程 (strict)"
+	@echo "  make official-live-fire-list # 全機能一覧（本番公式実弾）"
+	@echo "  make official-live-fire-run # 本番公式実弾 strict 実行（明示承認が必要）"
 	@echo "  make next-build-debug-local # Debug Next build (auto package manager detect)"
 	@echo "  make ci                     # CI-safe checks (syntax + advisory gates)"
 	@echo "  make check-go-live          # Strict go-live gate (fails if any control is missing)"
@@ -92,12 +94,19 @@ external-bank-full-journey-check:
 external-bank-full-journey-check-strict:
 	@bash scripts/external_bank_full_journey_check.sh --strict
 
+official-live-fire-list:
+	@bash scripts/official_live_fire.sh list
+
+official-live-fire-run:
+	@bash scripts/official_live_fire.sh run
+
 ci: verify-docs legal-clean
 	@bash -n scripts/go_live_check.sh
 	@bash -n scripts/grand_open_check.sh
 	@bash -n scripts/all_features_check.sh
 	@bash -n scripts/official_grand_open_all_features.sh
 	@bash -n scripts/external_bank_full_journey_check.sh
+	@bash -n scripts/official_live_fire.sh
 	@bash scripts/go_live_check.sh --advisory
 	@bash scripts/grand_open_check.sh --advisory
 	@bash scripts/all_features_check.sh --advisory
