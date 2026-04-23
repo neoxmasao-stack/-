@@ -1,5 +1,7 @@
 param(
-  [switch]$ClearPersisted
+  [switch]$ClearPersisted,
+  [string]$Repo = '',
+  [int]$PrNumber = 0
 )
 
 $ErrorActionPreference = 'Stop'
@@ -10,6 +12,21 @@ function Write-Step([string]$Message) {
 
 if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
   throw "GitHub CLI (gh) が見つかりません。https://cli.github.com/ からインストールしてください。"
+}
+
+if (Get-Command git -ErrorAction SilentlyContinue) {
+  Write-Step "Repository context check."
+  $gitRoot = & git rev-parse --show-toplevel 2>$null
+  if ($LASTEXITCODE -eq 0 -and $gitRoot) {
+    Write-Host "git root: $gitRoot"
+    $head = & git rev-parse --short HEAD 2>$null
+    if ($LASTEXITCODE -eq 0 -and $head) {
+      Write-Host "git HEAD: $head"
+    }
+    & git remote -v
+  } else {
+    Write-Host "git repository is not detected in current directory." -ForegroundColor Yellow
+  }
 }
 
 Write-Step "Clearing current-process token variables (GITHUB_TOKEN/GH_TOKEN)."
@@ -38,5 +55,17 @@ if ($LASTEXITCODE -ne 0) {
   throw "API認証に失敗。'gh auth login --web -s repo,workflow,read:org,gist' を再実行してください。"
 }
 
+if ($Repo -and $PrNumber -gt 0) {
+  Write-Step "Validating pull request access: $Repo#$PrNumber"
+  $null = & gh pr view $PrNumber --repo $Repo --json number,title,state
+  if ($LASTEXITCODE -ne 0) {
+    throw "PR参照に失敗。repo指定/権限/トークンを確認してください。例: gh pr view $PrNumber --repo $Repo"
+  }
+}
+
 Write-Step "Authentication looks healthy."
-Write-Host "次に実行: gh pr checkout 7 --repo neoxmasao-stack/-" -ForegroundColor Green
+if ($Repo -and $PrNumber -gt 0) {
+  Write-Host "次に実行: gh pr checkout $PrNumber --repo $Repo" -ForegroundColor Green
+} else {
+  Write-Host "次に実行: gh pr checkout <PR番号> --repo <owner/repo>" -ForegroundColor Green
+}

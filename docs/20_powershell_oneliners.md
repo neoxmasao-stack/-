@@ -67,11 +67,17 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; Get-Content .\arti
 
 ## 11) `gh` 認証エラー（401 Bad credentials）復旧
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\gh_auth_doctor.ps1 -ClearPersisted
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\gh_auth_doctor.ps1 -ClearPersisted -Repo "neoxmasao-stack/-" -PrNumber 7
 ```
 - `GITHUB_TOKEN` / `GH_TOKEN` の衝突をクリアし、`gh auth status` と `gh api user` で有効性を検証。
+- 実行ディレクトリの `git root / HEAD / remote` も表示するため、「別リポジトリにいる」問題を先に検知できる。
 - 復旧後の例:
 ```powershell
 gh pr checkout 7 --repo neoxmasao-stack/-
 gh pr view 7 --repo neoxmasao-stack/- --json number,title,url,headRefName,baseRefName,state
+```
+
+スクリプトが見つからない場合（`The term '.\scripts\gh_auth_doctor.ps1' is not recognized`）は、現在位置がこのリポジトリか確認:
+```powershell
+Get-Location; Get-ChildItem .\scripts\gh_auth_doctor.ps1
 ```

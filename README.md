@@ -147,7 +147,7 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_chec
 `gh` で `HTTP 401: Bad credentials` が出る場合:
 
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\gh_auth_doctor.ps1 -ClearPersisted
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\gh_auth_doctor.ps1 -ClearPersisted -Repo "neoxmasao-stack/-" -PrNumber 7
 ```
 
 
