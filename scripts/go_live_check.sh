@@ -68,6 +68,10 @@ check "C2" "Settlement flow completed" "$(is_true "${CHECK_SETTLEMENT_FLOW:-0}" 
 check "C3" "Idempotency + duplicate prevention enabled" "$(is_true "${CHECK_IDEMPOTENCY:-0}" && echo 1 || echo 0)"
 check "C4" "Rollback target fixed + smoke test passed" "$(is_true "${CHECK_ROLLBACK_AND_SMOKE:-0}" && echo 1 || echo 0)"
 check "C5" "Kill Switch tested" "$(is_true "${CHECK_KILL_SWITCH:-0}" && echo 1 || echo 0)"
+check "C6" "Transfer guardrails enforced" "$(is_true "${CHECK_TRANSFER_GUARDRAILS:-0}" && echo 1 || echo 0)"
+check "C7" "ATM guardrails enforced" "$(is_true "${CHECK_ATM_GUARDRAILS:-0}" && echo 1 || echo 0)"
+check "C8" "Card guardrails enforced" "$(is_true "${CHECK_CARD_GUARDRAILS:-0}" && echo 1 || echo 0)"
+check "C9" "Infra/SRE guardrails enforced" "$(is_true "${CHECK_INFRA_SRE_GUARDRAILS:-0}" && echo 1 || echo 0)"
 
 # D. Legal / Regulatory
 check "D1" "Authority update requests tracked" "$(is_true "${CHECK_AUTHORITY_TRACKING:-0}" && echo 1 || echo 0)"
@@ -118,6 +122,7 @@ check "R20" "PowerShell one-liner runbook exists" "$(required_file docs/20_power
 check "R21" "License/registry hardening guide exists" "$(required_file docs/21_license_and_registry_hardening.md && echo 1 || echo 0)"
 check "R22" "External connectivity grand-open checklist exists" "$(required_file docs/22_external_connectivity_grand_open_checklist.md && echo 1 || echo 0)"
 check "R23" "All-features verification runbook exists" "$(required_file docs/23_all_features_verification.md && echo 1 || echo 0)"
+check "R24" "Transfer/ATM/Card/Infra hardening guide exists" "$(required_file docs/25_transfer_atm_card_infra_hardening.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"

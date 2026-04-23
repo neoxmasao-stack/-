@@ -47,6 +47,7 @@ make check-go-live
 - `docs/21_license_and_registry_hardening.md`
 - `docs/22_external_connectivity_grand_open_checklist.md`
 - `docs/23_all_features_verification.md`
+- `docs/25_transfer_atm_card_infra_hardening.md`
 
 ## リカバリ確認（PowerShell）
 

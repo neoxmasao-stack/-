@@ -110,3 +110,8 @@ Set-Location "C:\Users\aiktn\fin-os-prod"; Get-Content .\ops-evidence\audit\lega
 ```powershell
 Set-Location "C:\Users\aiktn\fin-os-prod"; .\scripts\final_adoption_check.ps1
 ```
+
+## 15) 送金 / ATM / CARD / 金融インフラ 強化ドキュメント確認
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; Get-Content .\docs\25_transfer_atm_card_infra_hardening.md
+```

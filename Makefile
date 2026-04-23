@@ -6,7 +6,7 @@ help:
 	@echo "  make down                   # Stop local stack (placeholder)"
 	@echo "  make health                 # Run local health checks"
 	@echo "  make logs                   # Show local logs (placeholder)"
-	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12..23 + operating model)"
+	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12..25 + operating model)"
 	@echo "  make legal-clean            # Run legal/compliance clean checks and report"
 	@echo "  make grand-open-check       # Advisory external connectivity grand-open check"
 	@echo "  make grand-open-check-strict # Strict external connectivity grand-open check"
@@ -57,6 +57,7 @@ verify-docs:
 	@test -f docs/21_license_and_registry_hardening.md
 	@test -f docs/22_external_connectivity_grand_open_checklist.md
 	@test -f docs/23_all_features_verification.md
+	@test -f docs/25_transfer_atm_card_infra_hardening.md
 	@echo "[verify-docs] required docs are present."
 
 legal-clean:
