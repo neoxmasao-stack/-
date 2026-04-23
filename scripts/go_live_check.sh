@@ -117,6 +117,7 @@ check "R19" "21-country licensing index doc exists" "$(required_file docs/19_lic
 check "R20" "PowerShell one-liner runbook exists" "$(required_file docs/20_powershell_oneliners.md && echo 1 || echo 0)"
 check "R21" "License/registry hardening guide exists" "$(required_file docs/21_license_and_registry_hardening.md && echo 1 || echo 0)"
 check "R22" "External connectivity grand-open checklist exists" "$(required_file docs/22_external_connectivity_grand_open_checklist.md && echo 1 || echo 0)"
+check "R23" "All-features verification runbook exists" "$(required_file docs/23_all_features_verification.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"

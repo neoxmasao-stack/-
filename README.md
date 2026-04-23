@@ -46,6 +46,7 @@ make check-go-live
 - `docs/20_powershell_oneliners.md`
 - `docs/21_license_and_registry_hardening.md`
 - `docs/22_external_connectivity_grand_open_checklist.md`
+- `docs/23_all_features_verification.md`
 
 ## リカバリ確認（PowerShell）
 
@@ -96,6 +97,17 @@ make grand-open-check-strict
 ```
 
 レポート: `artifacts/grand-open-report.md`
+
+
+## その他全機能確認
+
+```bash
+make all-features-check
+# 本番前
+make all-features-check-strict
+```
+
+レポート: `artifacts/all-features-report.md`
 
 ## 法務クリーン確認
 

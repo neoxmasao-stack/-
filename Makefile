@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict
 
 help:
 	@echo "Available targets:"
@@ -10,6 +10,8 @@ help:
 	@echo "  make legal-clean            # Run legal/compliance clean checks and report"
 	@echo "  make grand-open-check       # Advisory external connectivity grand-open check"
 	@echo "  make grand-open-check-strict # Strict external connectivity grand-open check"
+	@echo "  make all-features-check      # Advisory integrated all-feature verification"
+	@echo "  make all-features-check-strict # Strict integrated all-feature verification"
 	@echo "  make next-build-debug-local # Debug Next build (auto package manager detect)"
 	@echo "  make ci                     # CI-safe checks (syntax + advisory gates)"
 	@echo "  make check-go-live          # Strict go-live gate (fails if any control is missing)"
@@ -54,6 +56,7 @@ verify-docs:
 	@test -f docs/20_powershell_oneliners.md
 	@test -f docs/21_license_and_registry_hardening.md
 	@test -f docs/22_external_connectivity_grand_open_checklist.md
+	@test -f docs/23_all_features_verification.md
 	@echo "[verify-docs] required docs are present."
 
 legal-clean:
@@ -65,11 +68,19 @@ grand-open-check:
 grand-open-check-strict:
 	@bash scripts/grand_open_check.sh --strict
 
+all-features-check:
+	@bash scripts/all_features_check.sh --advisory
+
+all-features-check-strict:
+	@bash scripts/all_features_check.sh --strict
+
 ci: verify-docs legal-clean
 	@bash -n scripts/go_live_check.sh
 	@bash -n scripts/grand_open_check.sh
+	@bash -n scripts/all_features_check.sh
 	@bash scripts/go_live_check.sh --advisory
 	@bash scripts/grand_open_check.sh --advisory
+	@bash scripts/all_features_check.sh --advisory
 
 check-go-live:
 	@bash scripts/go_live_check.sh --strict

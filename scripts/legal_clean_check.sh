@@ -66,6 +66,7 @@ check "L13" "Registry extract confirmation is documented" "$(contains_text docs/
 check "L14" "License expiry alert operation is documented" "$(contains_text docs/21_license_and_registry_hardening.md 'T-90/T-30/T-7/T-1' && echo 1 || echo 0)"
 check "L15" "Legal hold handling is documented" "$(contains_text docs/21_license_and_registry_hardening.md 'LEGAL_HOLD' && echo 1 || echo 0)"
 check "L16" "External connectivity grand-open checklist exists" "$(required_file docs/22_external_connectivity_grand_open_checklist.md && echo 1 || echo 0)"
+check "L17" "All-features verification runbook exists" "$(required_file docs/23_all_features_verification.md && echo 1 || echo 0)"
 
 {
   echo "# Legal Clean Report"
