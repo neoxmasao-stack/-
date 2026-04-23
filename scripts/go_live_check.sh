@@ -95,6 +95,9 @@ check "R8" "Prompt library doc exists" "$(required_file docs/08_ai_prompt_librar
 check "R9" "Compliance policy doc exists" "$(required_file docs/09_compliance_policy.md && echo 1 || echo 0)"
 check "R10" "UI behavior doc exists" "$(required_file docs/10_ui_behavior.md && echo 1 || echo 0)"
 check "R11" "Bank license original acquisition playbook exists" "$(required_file docs/12_bank_license_original_acquisition.md && echo 1 || echo 0)"
+check "R12" "Unified architecture blueprint exists" "$(required_file docs/13_fin_os_unified_architecture.md && echo 1 || echo 0)"
+check "R13" "UI/UX + Next.js mapping exists" "$(required_file docs/14_ui_ux_wireframes_and_nextjs_map.md && echo 1 || echo 0)"
+check "R14" "Org operating model exists" "$(required_file docs/FIN-OS_ORG_OPERATING_MODEL.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"
