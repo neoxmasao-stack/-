@@ -34,12 +34,15 @@ make legal-clean
 
 ### 本番判定（厳格）
 ```bash
-cp .golive.env.example .golive.env
-# 各項目を 1 に更新
+# ローカル手動実行: .golive.env を用意して各項目を 1 に更新
 make check-go-live
 ```
 - 1つでも未達なら終了コード 1
 - レポート: `artifacts/go-live-report.md`
+- GitHub Actions (`.github/workflows/release-gate.yml`) 実行時は、以下のいずれかで厳格設定を投入する:
+  - `secrets.GOLIVE_STRICT_ENV_B64`（base64 エンコード済み `.golive.env`）
+  - `vars.GOLIVE_STRICT_ENV`（複数行 `.golive.env` 本文）
+- どちらも未設定の場合、Workflow は fail-fast で終了する。
 
 
 ### Cloudflare同期（手動）
@@ -50,6 +53,13 @@ make cloudflare-sync-staging
 make cloudflare-sync-production
 ```
 - `wrangler.toml` と Cloudflare Secrets の設定を事前に確認する。
+
+### 公式グランドオープン（最終一括）
+```bash
+OFFICIAL_LAUNCH_APPROVED=1 make grand-open
+```
+- `verify-docs` / `legal-clean` / `check-go-live` / `cloudflare-sync-production` を順次実行する。
+- 誤実行防止のため承認フラグ `OFFICIAL_LAUNCH_APPROVED=1` を必須化。
 
 
 ### Next.js build debug（pnpm not found対策）
