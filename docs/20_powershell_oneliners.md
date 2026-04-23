@@ -95,3 +95,13 @@ codex mcp add my-docs --env DOCS_TOKEN=$env:DOCS_TOKEN -- npx -y @acme/docs-mcp
 ```
 
 詳細: `docs/24_mcp_setup_guide.md`
+
+## 13) ライセンス運用状態の確認（legal-canonicalize）
+```powershell
+Set-Location "C:\Users\aiktn\fin-os-prod"; .\scripts\license_readiness_check.ps1
+```
+
+手動で tail だけ見る場合:
+```powershell
+Set-Location "C:\Users\aiktn\fin-os-prod"; Get-Content .\ops-evidence\audit\legal-canonicalize.ndjson -Tail 5; Get-Content .\ops-evidence\status\legal-canonicalize-state.json
+```
