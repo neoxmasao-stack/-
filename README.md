@@ -144,5 +144,11 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_chec
 Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\run_checks.ps1 -Task go-live -Mode strict
 ```
 
+`gh` で `HTTP 401: Bad credentials` が出る場合:
+
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\gh_auth_doctor.ps1 -ClearPersisted
+```
+
 
 CIでは `advisory-quality-gate` に加え、`grand-open-external-connectivity` ジョブで外部接続グランドオープン確認を実行します。

@@ -64,3 +64,14 @@ Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; 
 ```powershell
 Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; Get-Content .\artifacts\go-live-report.md; Get-Content .\artifacts\legal-clean-report.md
 ```
+
+## 11) `gh` 認証エラー（401 Bad credentials）復旧
+```powershell
+Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\scripts\gh_auth_doctor.ps1 -ClearPersisted
+```
+- `GITHUB_TOKEN` / `GH_TOKEN` の衝突をクリアし、`gh auth status` と `gh api user` で有効性を検証。
+- 復旧後の例:
+```powershell
+gh pr checkout 7 --repo neoxmasao-stack/-
+gh pr view 7 --repo neoxmasao-stack/- --json number,title,url,headRefName,baseRefName,state
+```
