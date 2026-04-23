@@ -141,6 +141,7 @@ make official-grand-open-all-features
 - 厳格モードで `go_live_check` / `grand_open_check` / `all_features_check` を順番に実行します。
 - `pwsh` が利用可能な環境では `scripts/official_go_check.ps1` も続けて実行します。
 - レポートは `artifacts/official-grand-open-all-features-report.md` に出力されます。
+- 外部接続の銀行業務全行程だけを確認する場合は `make external-bank-full-journey-check`（厳格判定は `make external-bank-full-journey-check-strict`）。
 
 ## PowerShell ワンライナー
 

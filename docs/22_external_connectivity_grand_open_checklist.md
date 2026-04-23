@@ -71,3 +71,17 @@ make grand-open-check-strict
 ## 一言で定義
 外部接続の「つながる」を確認するだけでなく、
 **銀行業務が安全に完了し、復旧まで回ること**を確認して初めてグランドオープンとする。
+
+
+## 銀行業務全行程の外部接続チェック（公式グランドオープン向け）
+
+```bash
+make external-bank-full-journey-check
+# 本番判定
+make external-bank-full-journey-check-strict
+```
+
+- 実装: `scripts/external_bank_full_journey_check.sh`
+- レポート: `artifacts/external-bank-full-journey-report.md`
+- 確認項目: onboarding / KYC-AML / account+ledger / transfer / ATM / card / filing ack / settlement-recon / recovery-DR / executive signoff
+- 変数: `.golive.env` の `CHECK_BANK_*` 系フラグで判定
