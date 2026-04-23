@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  advisory-quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install CI dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make jq curl
+
+      - name: Bash syntax check
+        run: |
+          bash -n scripts/go_live_check.sh
+          bash -n scripts/legal_clean_check.sh
+          bash -n scripts/grand_open_check.sh
+          bash -n scripts/all_features_check.sh
+          bash -n scripts/cloudflare_sync.sh
+          bash -n scripts/next_build_debug.sh
+
+      - name: Advisory quality gates
+        run: make ci
+
+      - name: Upload advisory reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: advisory-gate-reports
+          path: |
+            artifacts/go-live-report.md
+            artifacts/legal-clean-report.md
+            artifacts/grand-open-report.md
+            artifacts/all-features-report.md
+
+  grand-open-external-connectivity:
+    runs-on: ubuntu-latest
+    needs: advisory-quality-gate
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run external connectivity grand-open confirmation (advisory)
+        run: bash scripts/grand_open_check.sh --advisory
+
+      - name: Upload grand-open connectivity report
+        uses: actions/upload-artifact@v4
+        with:
+          name: grand-open-external-connectivity-report
+          path: artifacts/grand-open-report.md
