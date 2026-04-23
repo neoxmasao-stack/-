@@ -45,6 +45,7 @@ make check-go-live
 - `docs/19_license_register_index_18_countries.md`
 - `docs/20_powershell_oneliners.md`
 - `docs/21_license_and_registry_hardening.md`
+- `docs/22_external_connectivity_grand_open_checklist.md`
 
 ## リカバリ確認（PowerShell）
 
@@ -84,6 +85,17 @@ make ci
 
 詳細は `docs/19_license_register_index_18_countries.md` を参照。
 
+
+
+## 外部接続グランドオープン確認
+
+```bash
+make grand-open-check
+# 本番判定
+make grand-open-check-strict
+```
+
+レポート: `artifacts/grand-open-report.md`
 
 ## 法務クリーン確認
 

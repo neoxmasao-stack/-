@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict
 
 help:
 	@echo "Available targets:"
@@ -6,10 +6,12 @@ help:
 	@echo "  make down                   # Stop local stack (placeholder)"
 	@echo "  make health                 # Run local health checks"
 	@echo "  make logs                   # Show local logs (placeholder)"
-	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12/13/14 + operating model + gateway/licensing + infra/legal/uiux/ai/revenue + cloudflare + ai-guardrails + 18-country-license-index + powershell-oneliners + license/registry-hardening)"
+	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12..22 + operating model)"
 	@echo "  make legal-clean            # Run legal/compliance clean checks and report"
+	@echo "  make grand-open-check       # Advisory external connectivity grand-open check"
+	@echo "  make grand-open-check-strict # Strict external connectivity grand-open check"
 	@echo "  make next-build-debug-local # Debug Next build (auto package manager detect)"
-	@echo "  make ci                     # CI-safe checks (syntax + advisory gate)"
+	@echo "  make ci                     # CI-safe checks (syntax + advisory gates)"
 	@echo "  make check-go-live          # Strict go-live gate (fails if any control is missing)"
 	@echo "  make check-go-live-advisory # Advisory go-live gate (non-blocking)"
 	@echo "  make cloudflare-sync-dry-run # Validate Cloudflare sync config"
@@ -51,14 +53,23 @@ verify-docs:
 	@test -f docs/19_license_register_index_18_countries.md
 	@test -f docs/20_powershell_oneliners.md
 	@test -f docs/21_license_and_registry_hardening.md
+	@test -f docs/22_external_connectivity_grand_open_checklist.md
 	@echo "[verify-docs] required docs are present."
 
 legal-clean:
 	@bash scripts/legal_clean_check.sh
 
+grand-open-check:
+	@bash scripts/grand_open_check.sh --advisory
+
+grand-open-check-strict:
+	@bash scripts/grand_open_check.sh --strict
+
 ci: verify-docs legal-clean
 	@bash -n scripts/go_live_check.sh
+	@bash -n scripts/grand_open_check.sh
 	@bash scripts/go_live_check.sh --advisory
+	@bash scripts/grand_open_check.sh --advisory
 
 check-go-live:
 	@bash scripts/go_live_check.sh --strict
