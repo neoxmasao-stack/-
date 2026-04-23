@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open
 
 help:
 	@echo "Available targets:"
@@ -15,6 +15,7 @@ help:
 	@echo "  make cloudflare-sync-dry-run # Validate Cloudflare sync config"
 	@echo "  make cloudflare-sync-staging # Sync Worker/D1 to Cloudflare staging"
 	@echo "  make cloudflare-sync-production # Sync Worker/D1 to Cloudflare production"
+	@echo "  make grand-open             # Official grand-open gate (requires OFFICIAL_LAUNCH_APPROVED=1)"
 
 up:
 	@echo "[up] No runtime services are defined in this repository yet."
@@ -73,6 +74,19 @@ cloudflare-sync-staging:
 
 cloudflare-sync-production:
 	@bash scripts/cloudflare_sync.sh --production
+
+grand-open:
+	@if [ "$${OFFICIAL_LAUNCH_APPROVED:-0}" != "1" ]; then \
+		echo "[grand-open] blocked: set OFFICIAL_LAUNCH_APPROVED=1 to run official grand-open flow."; \
+		exit 1; \
+	fi
+	@echo "[grand-open] running legal/doc/go-live checks..."
+	@$(MAKE) verify-docs
+	@$(MAKE) legal-clean
+	@$(MAKE) check-go-live
+	@echo "[grand-open] deploying to Cloudflare production..."
+	@$(MAKE) cloudflare-sync-production
+	@echo "[grand-open] completed."
 
 next-build-debug-local:
 	@bash scripts/next_build_debug.sh

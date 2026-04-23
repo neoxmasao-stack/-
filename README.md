@@ -26,10 +26,13 @@ make ci
 Strict判定（本番前）:
 
 ```bash
-cp .golive.env.example .golive.env
-# 値を0/1で更新
+# 既存の .golive.env を使う（未作成なら .golive.env.example をコピーして各値を更新）
 make check-go-live
 ```
+
+GitHub Actions の Strict Gate (`.github/workflows/release-gate.yml`) では、
+`secrets.GOLIVE_STRICT_ENV_B64`（base64化した `.golive.env`）または
+`vars.GOLIVE_STRICT_ENV`（複数行 `.golive.env` 本文）を設定して実行する。
 
 ## 主要ドキュメント
 - `docs/01_system_role.md` ～ `docs/10_ui_behavior.md`
@@ -61,6 +64,15 @@ make cloudflare-sync-production
 ```
 
 詳細は `docs/17_cloudflare_sync.md` を参照。
+
+## 公式グランドオープン（最終実行）
+
+```bash
+OFFICIAL_LAUNCH_APPROVED=1 make grand-open
+```
+
+- 実行内容: `verify-docs` → `legal-clean` → `check-go-live`（strict）→ `cloudflare-sync-production`
+- 誤実行防止のため `OFFICIAL_LAUNCH_APPROVED=1` が未設定だと停止する。
 
 
 ## AI運用ガードレール

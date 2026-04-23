@@ -11,12 +11,22 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Prepare strict config
+        env:
+          GOLIVE_STRICT_ENV_B64: ${{ secrets.GOLIVE_STRICT_ENV_B64 }}
+          GOLIVE_STRICT_ENV: ${{ vars.GOLIVE_STRICT_ENV }}
         run: |
           if [ -f .golive.env ]; then
             echo "Using repository .golive.env"
+          elif [ -n "${GOLIVE_STRICT_ENV_B64:-}" ]; then
+            echo "$GOLIVE_STRICT_ENV_B64" | base64 --decode > .golive.env
+            echo "Created .golive.env from GOLIVE_STRICT_ENV_B64 secret."
+          elif [ -n "${GOLIVE_STRICT_ENV:-}" ]; then
+            printf '%s\n' "$GOLIVE_STRICT_ENV" > .golive.env
+            echo "Created .golive.env from GOLIVE_STRICT_ENV repository variable."
           else
-            cp .golive.env.example .golive.env
-            echo "No .golive.env found; copied example (will fail until controls are set to 1)."
+            echo "Missing strict gate controls."
+            echo "Set either secrets.GOLIVE_STRICT_ENV_B64 (base64-encoded .golive.env) or vars.GOLIVE_STRICT_ENV (multiline .golive.env content)."
+            exit 1
           fi
 
       - name: Run strict go-live gate
