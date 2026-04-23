@@ -6,7 +6,7 @@ help:
 	@echo "  make down                   # Stop local stack (placeholder)"
 	@echo "  make health                 # Run local health checks"
 	@echo "  make logs                   # Show local logs (placeholder)"
-	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12/13/14 + operating model)"
+	@echo "  make verify-docs            # Verify required high-quality docs (01-10 + 12/13/14 + operating model + gateway/licensing)"
 	@echo "  make ci                     # CI-safe checks (syntax + advisory gate)"
 	@echo "  make check-go-live          # Strict go-live gate (fails if any control is missing)"
 	@echo "  make check-go-live-advisory # Advisory go-live gate (non-blocking)"
@@ -39,6 +39,7 @@ verify-docs:
 	@test -f docs/13_fin_os_unified_architecture.md
 	@test -f docs/14_ui_ux_wireframes_and_nextjs_map.md
 	@test -f docs/FIN-OS_ORG_OPERATING_MODEL.md
+	@test -f docs/15_gateway_contracts_and_licensing_workflow.md
 	@echo "[verify-docs] required docs are present."
 
 ci: verify-docs

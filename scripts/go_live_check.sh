@@ -98,6 +98,7 @@ check "R11" "Bank license original acquisition playbook exists" "$(required_file
 check "R12" "Unified architecture blueprint exists" "$(required_file docs/13_fin_os_unified_architecture.md && echo 1 || echo 0)"
 check "R13" "UI/UX + Next.js mapping exists" "$(required_file docs/14_ui_ux_wireframes_and_nextjs_map.md && echo 1 || echo 0)"
 check "R14" "Org operating model exists" "$(required_file docs/FIN-OS_ORG_OPERATING_MODEL.md && echo 1 || echo 0)"
+check "R15" "Gateway/API and licensing workflow doc exists" "$(required_file docs/15_gateway_contracts_and_licensing_workflow.md && echo 1 || echo 0)"
 
 {
   echo "# Go-Live Gate Report"
