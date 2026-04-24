@@ -17,24 +17,32 @@ report="artifacts/official-grand-open-all-features-report.md"
 declare -a RESULTS
 pass=0
 fail=0
+skip=0
 
-record() {
-  local id="$1"; local desc="$2"; local ok="$3"
-  if [[ "$ok" == "1" ]]; then
-    RESULTS+=("| ${id} | ${desc} | ✅ PASS |")
-    pass=$((pass + 1))
-  else
-    RESULTS+=("| ${id} | ${desc} | ❌ FAIL |")
-    fail=$((fail + 1))
-  fi
+record_pass() {
+  local id="$1"; local desc="$2"
+  RESULTS+=("| ${id} | ${desc} | ✅ PASS |")
+  pass=$((pass + 1))
+}
+
+record_fail() {
+  local id="$1"; local desc="$2"
+  RESULTS+=("| ${id} | ${desc} | ❌ FAIL |")
+  fail=$((fail + 1))
+}
+
+record_skip() {
+  local id="$1"; local desc="$2"
+  RESULTS+=("| ${id} | ${desc} | ⚠️ SKIP |")
+  skip=$((skip + 1))
 }
 
 run_check() {
   local id="$1"; local desc="$2"; shift 2
   if "$@"; then
-    record "$id" "$desc" "1"
+    record_pass "$id" "$desc"
   else
-    record "$id" "$desc" "0"
+    record_fail "$id" "$desc"
   fi
 }
 
@@ -49,7 +57,11 @@ run_check "O7" "Registry + identifier gate (${MODE})" bash scripts/identifier_re
 if command -v pwsh >/dev/null 2>&1; then
   run_check "O8" "Official Go/No-Go PowerShell check" pwsh -NoProfile -File scripts/official_go_check.ps1
 else
-  record "O8" "Official Go/No-Go PowerShell check (pwsh not installed; skipped)" "1"
+  if [[ "$MODE" == "advisory" ]]; then
+    record_skip "O8" "Official Go/No-Go PowerShell check (pwsh not installed)"
+  else
+    record_fail "O8" "Official Go/No-Go PowerShell check (pwsh not installed)"
+  fi
 fi
 
 {
@@ -58,6 +70,7 @@ fi
   echo "- Mode: **${MODE}**"
   echo "- Passed: **${pass}**"
   echo "- Failed: **${fail}**"
+  echo "- Skipped: **${skip}**"
   echo
   echo "| ID | Control | Result |"
   echo "|---|---|---|"

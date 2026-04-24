@@ -43,7 +43,8 @@ make all-features-check-strict
 - 内容: `go_live_check --strict` → `grand_open_check --strict` → `all_features_check --strict` を連続実行し、可能であれば `official_go_check.ps1` も実行。
 - 出力: `artifacts/official-grand-open-all-features-report.md`
 
-> `pwsh` が無い Linux 環境では PowerShell 判定は自動でスキップされます（レポートに明記）。
+> `pwsh` が無い Linux 環境では、`--advisory` は PowerShell 判定を `SKIP` として継続します。  
+> `--strict` は PowerShell 判定を `FAIL` として終了します（レポートに明記）。
 
 
 ## 一全機能一覧・本番公式実弾
