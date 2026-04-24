@@ -83,6 +83,12 @@ make cloudflare-sync-staging
 make cloudflare-sync-production
 ```
 
+### いまの同期方式（GitHub → Cloudflare）
+- このリポジトリは **GitHub Actions の手動実行**（`workflow_dispatch`）で Cloudflare 同期を行う想定です。
+- 実行時に `.github/workflows/cloudflare-sync.yml` が `scripts/cloudflare_sync.sh` を呼び出します。
+- 認証は GitHub Secrets（`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`）を使います。
+- つまり、**あなたの GitHub 側でワークフローを起動したときに同期が動く**構成です（常時自動同期ではありません）。
+
 詳細は `docs/17_cloudflare_sync.md` を参照。
 
 

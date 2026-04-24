@@ -31,4 +31,6 @@ make cloudflare-sync-production
 ## CI/CD 連携
 - `.github/workflows/cloudflare-sync.yml` で手動同期を実行可能。
 - `workflow_dispatch` 入力で `staging` / `production` を選択する。
-
+- 同期の実体は `scripts/cloudflare_sync.sh`（`wrangler deploy` / `wrangler d1 migrations apply`）。
+- Cloudflare 認証は GitHub Secrets（`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`）から注入する。
+- 常時自動同期ではなく、**GitHub 側で明示実行したときのみ反映**される。
