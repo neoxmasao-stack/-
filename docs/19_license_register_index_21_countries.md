@@ -112,3 +112,16 @@ UAE,CBUAE,https://www.centralbank.ae/en/licensing/
 - 月次で21URLの生存確認（HTTP 200 / 301 / 302）
 - 四半期で当局サイト構造変更を差分点検
 - 変更時は `docs/19` → 実装/クローラ設定 の順で更新
+
+
+## 掲載確認コマンド（公式ポータル一覧）
+
+```bash
+make portal-and-external-channel-check
+# 本番判定
+make portal-and-external-channel-check-strict
+```
+
+- このチェックは `docs/19` の 21カ国行数と HTTPS 公式ポータルリンク数を検査。
+- あわせて外部接続の `送金 / CARD / ATM` 実装フラグと E2E 証跡フラグを確認。
+- レポート: `artifacts/portal-and-external-channel-report.md`

@@ -26,6 +26,7 @@ jobs:
           bash -n scripts/next_build_debug.sh
           bash -n scripts/external_bank_full_journey_check.sh
           bash -n scripts/bank_full_journey_module_check.sh
+          bash -n scripts/portal_and_external_channel_check.sh
           bash -n scripts/official_live_fire.sh
 
       - name: Advisory quality gates
@@ -57,6 +58,9 @@ jobs:
       - name: Run bank full-journey module check (advisory)
         run: bash scripts/bank_full_journey_module_check.sh --advisory
 
+      - name: Run portal listing + external channel check (advisory)
+        run: bash scripts/portal_and_external_channel_check.sh --advisory
+
       - name: Upload grand-open connectivity report
         uses: actions/upload-artifact@v4
         with:
@@ -65,3 +69,4 @@ jobs:
             artifacts/grand-open-report.md
             artifacts/external-bank-full-journey-report.md
             artifacts/bank-full-journey-module-report.md
+            artifacts/portal-and-external-channel-report.md

@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory external-bank-full-journey-check external-bank-full-journey-check-strict official-live-fire-list official-live-fire-run bank-full-journey-module-check bank-full-journey-module-check-strict
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory external-bank-full-journey-check external-bank-full-journey-check-strict official-live-fire-list official-live-fire-run bank-full-journey-module-check bank-full-journey-module-check-strict portal-and-external-channel-check portal-and-external-channel-check-strict
 
 help:
 	@echo "Available targets:"
@@ -18,6 +18,8 @@ help:
 	@echo "  make external-bank-full-journey-check-strict # 外部接続 銀行業務全行程 (strict)"
 	@echo "  make bank-full-journey-module-check # 銀行業務全行程モジュール (advisory)"
 	@echo "  make bank-full-journey-module-check-strict # 銀行業務全行程モジュール (strict)"
+	@echo "  make portal-and-external-channel-check # 各国公式ポータル掲載 + 外部接続(送金/CARD/ATM) (advisory)"
+	@echo "  make portal-and-external-channel-check-strict # 各国公式ポータル掲載 + 外部接続(送金/CARD/ATM) (strict)"
 	@echo "  make official-live-fire-list # 全機能一覧（本番公式実弾）"
 	@echo "  make official-live-fire-run # 本番公式実弾 strict 実行（明示承認が必要）"
 	@echo "  make next-build-debug-local # Debug Next build (auto package manager detect)"
@@ -102,6 +104,12 @@ bank-full-journey-module-check:
 bank-full-journey-module-check-strict:
 	@bash scripts/bank_full_journey_module_check.sh --strict
 
+portal-and-external-channel-check:
+	@bash scripts/portal_and_external_channel_check.sh --advisory
+
+portal-and-external-channel-check-strict:
+	@bash scripts/portal_and_external_channel_check.sh --strict
+
 official-live-fire-list:
 	@bash scripts/official_live_fire.sh list
 
@@ -115,10 +123,12 @@ ci: verify-docs legal-clean
 	@bash -n scripts/official_grand_open_all_features.sh
 	@bash -n scripts/external_bank_full_journey_check.sh
 	@bash -n scripts/bank_full_journey_module_check.sh
+	@bash -n scripts/portal_and_external_channel_check.sh
 	@bash -n scripts/official_live_fire.sh
 	@bash scripts/go_live_check.sh --advisory
 	@bash scripts/grand_open_check.sh --advisory
 	@bash scripts/all_features_check.sh --advisory
+	@bash scripts/portal_and_external_channel_check.sh --advisory
 
 check-go-live:
 	@bash scripts/go_live_check.sh --strict

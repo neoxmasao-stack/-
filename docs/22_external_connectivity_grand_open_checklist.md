@@ -99,3 +99,16 @@ make bank-full-journey-module-check-strict
 - レポート: `artifacts/bank-full-journey-module-report.md`
 - 変数: `.golive.env` の `CHECK_BANK_MODULE_*` フラグ
 - 用途: 全行程を機能別モジュールで監査し、公式グランドオープン判定の説明責任を高める
+
+
+## 各国公式ポータル掲載確認 + 外部接続（送金/CARD/ATM）
+
+```bash
+make portal-and-external-channel-check
+# 本番判定
+make portal-and-external-channel-check-strict
+```
+
+- 実装: `scripts/portal_and_external_channel_check.sh`
+- レポート: `artifacts/portal-and-external-channel-report.md`
+- 検査: 21カ国公式ポータル掲載数 / HTTPSリンク数 / 送金実装 / CARD実装 / ATM実装 / E2E証跡
