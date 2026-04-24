@@ -146,6 +146,7 @@ make official-grand-open-all-features
 - 各国公式ポータル掲載確認 + 外部接続（送金/CARD/ATM）: `make portal-and-external-channel-check`（厳格判定は `make portal-and-external-channel-check-strict`）。
 - 法人登記簿 + 識別番号（SWIFT/BIC・IBAN・LEI・全銀）確認: `make identifier-registry-check`（厳格判定は `make identifier-registry-check-strict`）。
 - 法人名一致 + 免許/登録番号一致の検証は `make identifier-registry-check` に統合（`CHECK_ENTITY_NAME_MATCH_VERIFIED` / `CHECK_LICENSE_NUMBER_MATCH_VERIFIED`）。
+- 詳細レポートをここでまとめて確認: `make detailed-report`（必要なら `make detailed-report-generate` で再生成後に表示）。
 - 全機能一覧（本番公式実弾）を生成: `make official-live-fire-list`（`artifacts/official-live-fire-feature-list.md`）
 - 本番公式実弾 strict 実行: `OFFICIAL_LIVE_FIRE_APPROVED=YES make official-live-fire-run`
 - PowerShellワンライナー（全機能公式グランドオープン）: `Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task official-grand-open -Mode strict`
