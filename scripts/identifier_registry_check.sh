@@ -45,6 +45,8 @@ row_count=0
 key_nonempty_count=0
 portal_link_count=0
 country_detail_fail=0
+d1_entity_field=0
+d1_license_field=0
 if [[ -f "$index_file" ]]; then
   row_count=$(awk -F'|' '/^\|\s*[0-9]+\s*\|/ {c++} END {print c+0}' "$index_file")
   key_nonempty_count=$(awk -F'|' '
@@ -56,6 +58,8 @@ if [[ -f "$index_file" ]]; then
     END {print c+0}
   ' "$index_file")
   portal_link_count=$(rg -No 'https://[^) ]+' "$index_file" | wc -l | tr -d ' ')
+  rg -q 'entity_name_matched' "$index_file" && d1_entity_field=1 || true
+  rg -q 'license_number' "$index_file" && d1_license_field=1 || true
 
   while IFS=$'\t' read -r no country url key; do
     [[ -z "${no}" ]] && continue
@@ -94,6 +98,9 @@ check "I7" "IBAN identifier is verified" "$(is_true "${CHECK_IBAN_IDENTIFIER:-0}
 check "I8" "LEI identifier is verified" "$(is_true "${CHECK_LEI_IDENTIFIER:-0}" && echo 1 || echo 0)"
 check "I9" "全銀( Zengin ) identifier is verified" "$(is_true "${CHECK_ZENGIN_IDENTIFIER:-0}" && echo 1 || echo 0)"
 check "I10" "Identifier evidence (registry/SWIFT/IBAN/LEI/Zengin) archived" "$(is_true "${CHECK_IDENTIFIER_EVIDENCE_ARCHIVED:-0}" && echo 1 || echo 0)"
+check "I11" "Docs define 法人名(entity_name_matched) and 番号(license_number) fields" "$([[ "$d1_entity_field" -eq 1 && "$d1_license_field" -eq 1 ]] && echo 1 || echo 0)"
+check "I12" "法人名一致 (entity name match) is verified" "$(is_true "${CHECK_ENTITY_NAME_MATCH_VERIFIED:-0}" && echo 1 || echo 0)"
+check "I13" "免許/登録番号一致 is verified" "$(is_true "${CHECK_LICENSE_NUMBER_MATCH_VERIFIED:-0}" && echo 1 || echo 0)"
 
 {
   echo "# Registry + Identifier Verification Report"
