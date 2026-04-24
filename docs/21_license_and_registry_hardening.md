@@ -133,4 +133,5 @@ make identifier-registry-check-strict
 
 - 実装: `scripts/identifier_registry_check.sh`
 - レポート: `artifacts/identifier-registry-report.md`
+- `docs/19` の 21カ国行数 / 主検索キー（免許・登録番号） / 公式HTTPSリンク数も同時に検証。
 - フラグ: `.golive.env` の `CHECK_CORPORATE_REGISTRY_*` / `CHECK_SWIFT_BIC_IDENTIFIER` / `CHECK_IBAN_IDENTIFIER` / `CHECK_LEI_IDENTIFIER` / `CHECK_ZENGIN_IDENTIFIER` / `CHECK_IDENTIFIER_EVIDENCE_ARCHIVED`

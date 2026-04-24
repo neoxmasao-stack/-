@@ -39,12 +39,32 @@ check() {
   fi
 }
 
-check "I1" "Corporate registry verification completed" "$(is_true "${CHECK_CORPORATE_REGISTRY_VERIFIED:-0}" && echo 1 || echo 0)"
-check "I2" "SWIFT/BIC identifier is verified" "$(is_true "${CHECK_SWIFT_BIC_IDENTIFIER:-0}" && echo 1 || echo 0)"
-check "I3" "IBAN identifier is verified" "$(is_true "${CHECK_IBAN_IDENTIFIER:-0}" && echo 1 || echo 0)"
-check "I4" "LEI identifier is verified" "$(is_true "${CHECK_LEI_IDENTIFIER:-0}" && echo 1 || echo 0)"
-check "I5" "全銀( Zengin ) identifier is verified" "$(is_true "${CHECK_ZENGIN_IDENTIFIER:-0}" && echo 1 || echo 0)"
-check "I6" "Identifier evidence (registry/SWIFT/IBAN/LEI/Zengin) archived" "$(is_true "${CHECK_IDENTIFIER_EVIDENCE_ARCHIVED:-0}" && echo 1 || echo 0)"
+index_file='docs/19_license_register_index_21_countries.md'
+row_count=0
+key_nonempty_count=0
+portal_link_count=0
+if [[ -f "$index_file" ]]; then
+  row_count=$(awk -F'|' '/^\|\s*[0-9]+\s*\|/ {c++} END {print c+0}' "$index_file")
+  key_nonempty_count=$(awk -F'|' '
+    /^\|\s*[0-9]+\s*\|/ {
+      key=$7
+      gsub(/^[ \t]+|[ \t]+$/, "", key)
+      if (length(key) > 0) c++
+    }
+    END {print c+0}
+  ' "$index_file")
+  portal_link_count=$(rg -No 'https://[^) ]+' "$index_file" | wc -l | tr -d ' ')
+fi
+
+check "I1" "21-country registry table rows are listed" "$([[ "$row_count" -ge 21 ]] && echo 1 || echo 0)"
+check "I2" "Country-level license/registration search keys are filled" "$([[ "$key_nonempty_count" -ge 21 ]] && echo 1 || echo 0)"
+check "I3" "Official portal references are listed (HTTPS 21+)" "$([[ "$portal_link_count" -ge 21 ]] && echo 1 || echo 0)"
+check "I4" "Corporate registry verification completed" "$(is_true "${CHECK_CORPORATE_REGISTRY_VERIFIED:-0}" && echo 1 || echo 0)"
+check "I5" "SWIFT/BIC identifier is verified" "$(is_true "${CHECK_SWIFT_BIC_IDENTIFIER:-0}" && echo 1 || echo 0)"
+check "I6" "IBAN identifier is verified" "$(is_true "${CHECK_IBAN_IDENTIFIER:-0}" && echo 1 || echo 0)"
+check "I7" "LEI identifier is verified" "$(is_true "${CHECK_LEI_IDENTIFIER:-0}" && echo 1 || echo 0)"
+check "I8" "全銀( Zengin ) identifier is verified" "$(is_true "${CHECK_ZENGIN_IDENTIFIER:-0}" && echo 1 || echo 0)"
+check "I9" "Identifier evidence (registry/SWIFT/IBAN/LEI/Zengin) archived" "$(is_true "${CHECK_IDENTIFIER_EVIDENCE_ARCHIVED:-0}" && echo 1 || echo 0)"
 
 {
   echo "# Registry + Identifier Verification Report"
@@ -52,6 +72,9 @@ check "I6" "Identifier evidence (registry/SWIFT/IBAN/LEI/Zengin) archived" "$(is
   echo "- Mode: **${MODE}**"
   echo "- Passed: **${pass}**"
   echo "- Failed: **${fail}**"
+  echo "- Country rows detected: **${row_count}**"
+  echo "- Search keys detected: **${key_nonempty_count}**"
+  echo "- HTTPS links detected: **${portal_link_count}**"
   echo
   echo "| ID | Control | Result |"
   echo "|---|---|---|"
