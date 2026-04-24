@@ -11,6 +11,7 @@
 
 ## 実行コマンド
 ```bash
+make github-cloudflare-check
 make cloudflare-sync-dry-run
 make cloudflare-sync-staging
 make cloudflare-sync-production
@@ -34,3 +35,4 @@ make cloudflare-sync-production
 - 同期の実体は `scripts/cloudflare_sync.sh`（`wrangler deploy` / `wrangler d1 migrations apply`）。
 - Cloudflare 認証は GitHub Secrets（`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`）から注入する。
 - 常時自動同期ではなく、**GitHub 側で明示実行したときのみ反映**される。
+- 実行前の前提確認は `make github-cloudflare-check` で `artifacts/github-cloudflare-check.md` を確認する。

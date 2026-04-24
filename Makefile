@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory external-bank-full-journey-check external-bank-full-journey-check-strict official-live-fire-list official-live-fire-run bank-full-journey-module-check bank-full-journey-module-check-strict portal-and-external-channel-check portal-and-external-channel-check-strict identifier-registry-check identifier-registry-check-strict detailed-report detailed-report-generate country-original-format-report country-original-format-report-strict system-overview-check system-overview-check-strict
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run github-cloudflare-check grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory external-bank-full-journey-check external-bank-full-journey-check-strict official-live-fire-list official-live-fire-run bank-full-journey-module-check bank-full-journey-module-check-strict portal-and-external-channel-check portal-and-external-channel-check-strict identifier-registry-check identifier-registry-check-strict detailed-report detailed-report-generate country-original-format-report country-original-format-report-strict system-overview-check system-overview-check-strict
 
 help:
 	@echo "Available targets:"
@@ -37,6 +37,7 @@ help:
 	@echo "  make cloudflare-sync-dry-run # Validate Cloudflare sync config"
 	@echo "  make cloudflare-sync-staging # Sync Worker/D1 to Cloudflare staging"
 	@echo "  make cloudflare-sync-production # Sync Worker/D1 to Cloudflare production"
+	@echo "  make github-cloudflare-check # Validate GitHub/Cloudflare sync prerequisites"
 
 up:
 	@echo "[up] No runtime services are defined in this repository yet."
@@ -180,6 +181,9 @@ cloudflare-sync-staging:
 
 cloudflare-sync-production:
 	@bash scripts/cloudflare_sync.sh --production
+
+github-cloudflare-check:
+	@bash scripts/github_cloudflare_check.sh
 
 next-build-debug-local:
 	@bash scripts/next_build_debug.sh

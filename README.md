@@ -77,6 +77,7 @@ $P="C:\Users\aiktn\Documents\Codex\2026-04-23-cloud\docs\FIN-OS_ORG_OPERATING_MO
 ## Cloudflare同期
 
 ```bash
+make github-cloudflare-check
 make cloudflare-sync-dry-run
 # 実反映
 make cloudflare-sync-staging
@@ -88,6 +89,7 @@ make cloudflare-sync-production
 - 実行時に `.github/workflows/cloudflare-sync.yml` が `scripts/cloudflare_sync.sh` を呼び出します。
 - 認証は GitHub Secrets（`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`）を使います。
 - つまり、**あなたの GitHub 側でワークフローを起動したときに同期が動く**構成です（常時自動同期ではありません）。
+- `make github-cloudflare-check` で、workflow/Secrets参照/ローカル前提（`gh` 認証・環境変数）をレポート形式で確認できます。
 
 詳細は `docs/17_cloudflare_sync.md` を参照。
 
