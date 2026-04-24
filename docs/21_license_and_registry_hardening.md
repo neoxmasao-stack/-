@@ -121,3 +121,16 @@ DRAFT
 ## 10. 一言で定義
 ライセンスと登記簿を「確認資料」ではなく、
 **運用を停止/継続判断できる制御データ**として管理する。
+
+
+## 法人登記簿 + 識別番号（SWIFT/BIC・IBAN・LEI・全銀）確認コマンド
+
+```bash
+make identifier-registry-check
+# 本番判定
+make identifier-registry-check-strict
+```
+
+- 実装: `scripts/identifier_registry_check.sh`
+- レポート: `artifacts/identifier-registry-report.md`
+- フラグ: `.golive.env` の `CHECK_CORPORATE_REGISTRY_*` / `CHECK_SWIFT_BIC_IDENTIFIER` / `CHECK_IBAN_IDENTIFIER` / `CHECK_LEI_IDENTIFIER` / `CHECK_ZENGIN_IDENTIFIER` / `CHECK_IDENTIFIER_EVIDENCE_ARCHIVED`

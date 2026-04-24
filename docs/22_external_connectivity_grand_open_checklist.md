@@ -112,3 +112,10 @@ make portal-and-external-channel-check-strict
 - 実装: `scripts/portal_and_external_channel_check.sh`
 - レポート: `artifacts/portal-and-external-channel-report.md`
 - 検査: 21カ国公式ポータル掲載数 / HTTPSリンク数 / 送金実装 / CARD実装 / ATM実装 / E2E証跡
+
+
+## 法人登記簿・識別番号確認（外部接続連携）
+
+- 実行: `make identifier-registry-check`
+- Strict: `make identifier-registry-check-strict`
+- 検査: 法人登記簿 / SWIFT(BIC) / IBAN / LEI / 全銀識別番号 / 証跡保全
