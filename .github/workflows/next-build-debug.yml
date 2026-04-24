@@ -1,0 +1,28 @@
+name: Next Build Debug
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enable Corepack (pnpm support)
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm --version
+
+      - name: Debug Next build only
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          CI: 'true'
+        run: bash scripts/next_build_debug.sh

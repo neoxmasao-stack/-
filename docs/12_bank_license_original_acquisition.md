@@ -17,7 +17,7 @@
 
 ## ② ワンライナー（PowerShell）
 ```powershell
-$P="C:\Users\aiktn\fin-os-prod\docs"; New-Item -ItemType Directory -Force $P | Out-Null; "01_system_role.md","02_business_rules.md","03_state_machine.md","04_security_policy.md","05_api_contracts.md","06_ledger_rules.md","07_ops_runbook.md","08_ai_prompt_library.md","09_compliance_policy.md","10_ui_behavior.md" | ForEach-Object { New-Item -ItemType File -Force "$P\$_" | Out-Null }; Write-Host "DOCS READY: $P" -ForegroundColor Green
+$P = Join-Path (Get-Location) 'docs'; New-Item -ItemType Directory -Force $P | Out-Null; "01_system_role.md","02_business_rules.md","03_state_machine.md","04_security_policy.md","05_api_contracts.md","06_ledger_rules.md","07_ops_runbook.md","08_ai_prompt_library.md","09_compliance_policy.md","10_ui_behavior.md" | ForEach-Object { New-Item -ItemType File -Force (Join-Path $P $_) | Out-Null }; Write-Host "DOCS READY: $P" -ForegroundColor Green
 ```
 
 ## ③ 最小アーキテクチャ説明
@@ -34,7 +34,7 @@ $P="C:\Users\aiktn\fin-os-prod\docs"; New-Item -ItemType Directory -Force $P | O
 
 ## ④ リカバリ手順
 ```powershell
-Set-Location C:\Users\aiktn\fin-os-prod\docs; Get-ChildItem *.md | Select-Object Name
+Get-ChildItem .\docs\*.md | Select-Object Name
 ```
 
 ## ⑤ リスクポイント

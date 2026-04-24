@@ -8,6 +8,7 @@
 - Card / Virtual Card
 - ライセンス等の **申請 → 受理 → 公開/掲載**
 - 代理弁護士・司法書士との委任契約と作業分担
+- 登記簿（会社法人等番号、履歴事項、代表者、所在地）
 
 ## 2. ゲートウェイ契約（共通）
 ### 2.1 必須ヘッダー
@@ -59,6 +60,7 @@ DRAFT
   → APPROVED / REJECTED
   → PUBLICATION_CONFIRMED
   → LISTING_VERIFIED
+  → REGISTRY_EXTRACT_CONFIRMED
 ```
 
 ### 4.1 状態定義
@@ -66,6 +68,7 @@ DRAFT
 - `RECEIPT_ACCEPTED`: 受理番号取得
 - `PUBLICATION_CONFIRMED`: 公開ページ掲載確認
 - `LISTING_VERIFIED`: 社内台帳との突合完了
+- `REGISTRY_EXTRACT_CONFIRMED`: 登記原本との一致確認完了
 
 ## 5. 代理弁護士・司法書士 契約/申請分担
 ### 5.1 代理弁護士
@@ -92,6 +95,8 @@ DRAFT
 - `correlation_id`
 - `audit_id`
 - `next_action`
+- `registry_number`
+- `expiry_date`
 
 ## 7. D1 推奨テーブル
 - `gateway_contracts`
@@ -102,6 +107,8 @@ DRAFT
 - `license_applications`
 - `license_receipts`
 - `license_publications`
+- `corporate_registry_documents`
+- `corporate_registry_changes`
 - `legal_representative_engagements`
 - `evidence_registry`
 
@@ -116,7 +123,15 @@ DRAFT
 - `LICENSE_PUBLICATION_CONFIRMED`
 - `LEGAL_REPRESENTATIVE_ASSIGNED`
 - `JUDICIAL_SCRIVENER_DOCUMENT_CONFIRMED`
+- `CORPORATE_REGISTRY_EXTRACT_CONFIRMED`
+- `LICENSE_EXPIRY_ALERT_TRIGGERED`
 
-## 9. 一言で定義
-API/送金/決済/ATM/CARD の契約統制と、ライセンス申請の **申請→受理→公開** を同じ監査基盤で追跡し、
+## 9. 強化運用ルール（追加）
+- 期限管理は T-90/T-30/T-7/T-1 で通知し、期限超過件数 0 を維持する。
+- `APPROVED` 後に公開掲載が確認できない場合、`LISTING_VERIFIED` へ遷移禁止。
+- 登記差分（商号/所在地/代表者/番号）検知時は `MISMATCH_DETECTED` として二重承認レビュー。
+- 失効/取消ステータス検知時は対象業務APIを緊急制限し、監査ログへ即時記録する。
+
+## 10. 一言で定義
+API/送金/決済/ATM/CARD の契約統制と、ライセンス申請の **申請→受理→公開→登記一致** を同じ監査基盤で追跡し、
 代理弁護士・司法書士の責任境界まで含めて管理する。
