@@ -1,4 +1,4 @@
-.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory external-bank-full-journey-check external-bank-full-journey-check-strict official-live-fire-list official-live-fire-run bank-full-journey-module-check bank-full-journey-module-check-strict portal-and-external-channel-check portal-and-external-channel-check-strict identifier-registry-check identifier-registry-check-strict detailed-report detailed-report-generate
+.PHONY: help up down health logs ci check-go-live check-go-live-advisory verify-docs legal-clean next-build-debug-local cloudflare-sync-staging cloudflare-sync-production cloudflare-sync-dry-run grand-open-check grand-open-check-strict all-features-check all-features-check-strict official-grand-open-all-features official-grand-open-all-features-advisory external-bank-full-journey-check external-bank-full-journey-check-strict official-live-fire-list official-live-fire-run bank-full-journey-module-check bank-full-journey-module-check-strict portal-and-external-channel-check portal-and-external-channel-check-strict identifier-registry-check identifier-registry-check-strict detailed-report detailed-report-generate country-original-format-report country-original-format-report-strict
 
 help:
 	@echo "Available targets:"
@@ -24,6 +24,8 @@ help:
 	@echo "  make identifier-registry-check-strict # 法人登記簿 + SWIFT/IBAN/LEI/全銀 識別番号 (strict)"
 	@echo "  make detailed-report # 詳細レポートを統合表示"
 	@echo "  make detailed-report-generate # CI実行後に詳細レポート表示"
+	@echo "  make country-original-format-report # 各国原本フォーマット詳細レポート (advisory)"
+	@echo "  make country-original-format-report-strict # 各国原本フォーマット詳細レポート (strict)"
 	@echo "  make official-live-fire-list # 全機能一覧（本番公式実弾）"
 	@echo "  make official-live-fire-run # 本番公式実弾 strict 実行（明示承認が必要）"
 	@echo "  make next-build-debug-local # Debug Next build (auto package manager detect)"
@@ -126,6 +128,12 @@ detailed-report:
 detailed-report-generate:
 	@bash scripts/detailed_report.sh --generate
 
+country-original-format-report:
+	@bash scripts/country_original_format_report.sh --advisory
+
+country-original-format-report-strict:
+	@bash scripts/country_original_format_report.sh --strict
+
 official-live-fire-list:
 	@bash scripts/official_live_fire.sh list
 
@@ -143,6 +151,7 @@ ci: verify-docs legal-clean
 	@bash -n scripts/identifier_registry_check.sh
 	@bash -n scripts/official_live_fire.sh
 	@bash -n scripts/detailed_report.sh
+	@bash -n scripts/country_original_format_report.sh
 	@bash scripts/go_live_check.sh --advisory
 	@bash scripts/grand_open_check.sh --advisory
 	@bash scripts/all_features_check.sh --advisory

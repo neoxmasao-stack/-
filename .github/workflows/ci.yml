@@ -43,6 +43,7 @@ jobs:
             artifacts/grand-open-report.md
             artifacts/all-features-report.md
             artifacts/identifier-registry-report.md
+            artifacts/country-original-format-report.md
 
   grand-open-external-connectivity:
     runs-on: ubuntu-latest
@@ -66,6 +67,9 @@ jobs:
       - name: Run registry + identifier check (advisory)
         run: bash scripts/identifier_registry_check.sh --advisory
 
+      - name: Run country original-format report (advisory)
+        run: bash scripts/country_original_format_report.sh --advisory
+
       - name: Upload grand-open connectivity report
         uses: actions/upload-artifact@v4
         with:
@@ -76,3 +80,4 @@ jobs:
             artifacts/bank-full-journey-module-report.md
             artifacts/portal-and-external-channel-report.md
             artifacts/identifier-registry-report.md
+            artifacts/country-original-format-report.md
