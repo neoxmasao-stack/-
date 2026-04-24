@@ -24,6 +24,7 @@ reports=(
   artifacts/portal-and-external-channel-report.md
   artifacts/identifier-registry-report.md
   artifacts/country-original-format-report.md
+  artifacts/system-overview-report.md
   artifacts/external-bank-full-journey-report.md
   artifacts/bank-full-journey-module-report.md
   artifacts/official-grand-open-all-features-report.md

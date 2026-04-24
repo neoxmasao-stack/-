@@ -44,6 +44,7 @@ jobs:
             artifacts/all-features-report.md
             artifacts/identifier-registry-report.md
             artifacts/country-original-format-report.md
+            artifacts/system-overview-report.md
 
   grand-open-external-connectivity:
     runs-on: ubuntu-latest
@@ -70,6 +71,9 @@ jobs:
       - name: Run country original-format report (advisory)
         run: bash scripts/country_original_format_report.sh --advisory
 
+      - name: Run system overview check (advisory)
+        run: bash scripts/system_overview_check.sh --advisory
+
       - name: Upload grand-open connectivity report
         uses: actions/upload-artifact@v4
         with:
@@ -81,3 +85,4 @@ jobs:
             artifacts/portal-and-external-channel-report.md
             artifacts/identifier-registry-report.md
             artifacts/country-original-format-report.md
+            artifacts/system-overview-report.md
