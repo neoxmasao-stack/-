@@ -71,7 +71,7 @@ make check-go-live
 ## リカバリ確認（PowerShell）
 
 ```powershell
-$P="C:\Users\aiktn\Documents\Codex\2026-04-23-cloud\docs\FIN-OS_ORG_OPERATING_MODEL.md"; if (!(Test-Path $P)) { Write-Host "MISSING: $P" -ForegroundColor Red } else { Get-Content $P }
+if (!(Test-Path .\docs\FIN-OS_ORG_OPERATING_MODEL.md)) { Write-Host "MISSING: .\docs\FIN-OS_ORG_OPERATING_MODEL.md" -ForegroundColor Red } else { Get-Content .\docs\FIN-OS_ORG_OPERATING_MODEL.md }
 ```
 
 ## Cloudflare同期
@@ -178,13 +178,13 @@ make official-grand-open-all-features
 - システム概要こと細かく確認: `make system-overview-check`（厳格判定は `make system-overview-check-strict`）。
 - 全機能一覧（本番公式実弾）を生成: `make official-live-fire-list`（`artifacts/official-live-fire-feature-list.md`）
 - 本番公式実弾 strict 実行: `OFFICIAL_LIVE_FIRE_APPROVED=YES make official-live-fire-run`
-- PowerShellワンライナー（全機能公式グランドオープン）: `Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task official-grand-open -Mode strict`
-- PowerShellワンライナー（銀行業務全行程モジュール）: `Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task bank-full-journey -Mode strict; .\run_checks.ps1 -Task bank-module -Mode strict`
+- PowerShellワンライナー（全機能公式グランドオープン）: `.\run_checks.ps1 -Task official-grand-open -Mode strict`
+- PowerShellワンライナー（銀行業務全行程モジュール）: `.\run_checks.ps1 -Task bank-full-journey -Mode strict; .\run_checks.ps1 -Task bank-module -Mode strict`
 
 ## PowerShell ワンライナー
 
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; make verify-docs; make legal-clean; make check-go-live-advisory
+make verify-docs; make legal-clean; make check-go-live-advisory
 ```
 
 詳細: `docs/20_powershell_oneliners.md`
@@ -196,14 +196,14 @@ MCP設定ガイド: `docs/24_mcp_setup_guide.md`
 PowerShell専用ラッパー（`make` 非依存）:
 
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task ci -Mode advisory
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\run_checks.ps1 -Task go-live -Mode strict
+.\run_checks.ps1 -Task ci -Mode advisory
+.\run_checks.ps1 -Task go-live -Mode strict
 ```
 
 `gh` で `HTTP 401: Bad credentials` が出る場合:
 
 ```powershell
-Set-Location C:\Users\aiktn\Documents\Codex\2026-04-23-cloud; .\gh_auth_doctor.ps1 -ClearPersisted -Repo "neoxmasao-stack/-" -PrNumber 7
+.\gh_auth_doctor.ps1 -ClearPersisted -Repo "neoxmasao-stack/-" -PrNumber 7
 ```
 
 
