@@ -73,11 +73,11 @@ if ($judge) {
   Write-Host ("FINAL_JUDGE verdict={0} reason={1}" -f $verdict, $reason)
 }
 
-$noGo = (-not $webOk) -or ($truthState -ne 'GO')
+$noGo = (-not $webOk) -or (-not $apiOk) -or ($truthState -ne 'GO')
 if ($noGo) {
-  Write-Host 'RESULT: NO_GO (BUILD_VERIFIED or RELEASE_TRUTH_READY is unmet)' -ForegroundColor Red
-  Write-Host 'Summary: 本質は Web build failure + release truth blockers.' -ForegroundColor Red
-  Write-Host 'Next #1: npm run build で Web build failure を解消' -ForegroundColor Yellow
+  Write-Host 'RESULT: NO_GO (WEB/API build verification or RELEASE_TRUTH_READY is unmet)' -ForegroundColor Red
+  Write-Host 'Summary: 本質は Web/API build failure または release truth blockers.' -ForegroundColor Red
+  Write-Host 'Next #1: web/api build failure を解消' -ForegroundColor Yellow
   Write-Host 'Next #2: release truth の blocking を埋める (transfer/card/filings/ATM/license coverage)' -ForegroundColor Yellow
   if ($FailOnNoGo) {
     exit 1
